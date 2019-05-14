@@ -25,9 +25,9 @@ INC = -I./inc
 $(NAME): $(OBJ)
 	gcc $(WFLAGS) $(INC) $(OBJ) -o $(NAME)
 
-all: $(NAME)
+all: $(OBJF) $(NAME)
 
-$(OBJF)/%.o: $(SRCF)/%.c $(OBJF)
+$(OBJF)/%.o: $(SRCF)/%.c
 	gcc $(WFLAGS) $(INC) -c -o $@ $<
 
 $(OBJF):

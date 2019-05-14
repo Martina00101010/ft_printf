@@ -12,33 +12,29 @@
 
 #include <stdarg.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int		ft_printf(char *s, ...)
 {
 	va_list		ap;
-	int			d;
-	char		*e;
-	char		c;
+//	char		*e;
+	char		*dup;
+	int		smb;
 
+	smb = 0;
+	dup = s;
 	va_start(ap, s);
 	while (*s)
 	{
-		if (*s == 's')
+		smp++;
+		if (*s == '%' && s - dup > 0)
 		{
-			e = va_arg(ap, char *);
-			printf("%s\n", e);
-		}
-		else if (*s == 'd')
-		{
-			d = va_arg(ap, int);
-			printf("%i\n", d);
-		}
-		else if (*s == 'c')
-		{
-			c = va_arg(ap, int);
-			printf("%i %zu\n", c, sizeof(c));
+			write(1, dup, s - dup);
+			write(1, "\n", 1);
+//			e = va_arg(ap, char *);
+//			printf("%s\n", e);
 		}
 		s++;
 	}
-	return (0);
+	return (smp);
 }
