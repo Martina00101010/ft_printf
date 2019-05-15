@@ -18,7 +18,7 @@ int		main(void)
 	char	*s;
 
 	s = "Printing variable";
-	ft_printf("%s\n", s);
-//	   printf("%-21s\n", s);
+//	ft_printf("%s\n", s);
+	   printf("abcd%sabc%ddabcd\n", s, 42);
 	return (0);
 }

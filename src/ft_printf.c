@@ -26,7 +26,7 @@ int		ft_printf(char *s, ...)
 	va_start(ap, s);
 	while (*s)
 	{
-		smp++;
+		smb++;
 		if (*s == '%' && s - dup > 0)
 		{
 			write(1, dup, s - dup);
@@ -36,5 +36,5 @@ int		ft_printf(char *s, ...)
 		}
 		s++;
 	}
-	return (smp);
+	return (smb);
 }
