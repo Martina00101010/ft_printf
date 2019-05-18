@@ -6,35 +6,86 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/12 18:41:28 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/18 17:30:09 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdio.h>
+#include "libft.h"
 #include <unistd.h>
+#include <stdlib.h>
 
-int		ft_printf(char *s, ...)
+static int	parse_text(char **s, char **to_print, int size)
 {
-	va_list		ap;
-//	char		*e;
-	char		*dup;
-	int		smb;
+	int		len;
+	char	*tmp;
 
-	smb = 0;
-	dup = s;
+	len = 0;
+	while ((*s)[len] != '%' && (*s)[len] != '\0')
+		len++;
+	tmp = *to_print;
+//	*to_print = ft_strnew(size + len + 1);
+//	*to_print = ft_strjoin();
+//	free(tmp);
+	*s += len;
+	return (len);
+}
+/*
+static int	parse_backlash()
+{
+	return (1);
+}
+
+
+static int	parse_param(char *s, va_list ap, char **to_print)
+{
+	int		len;
+	int		d;
+	char	*e;
+	char	c;
+
+	len = 0;
+	if (*s == 's')
+	{
+		e = va_arg(ap, char *);
+		printf("%s\n", e);
+	}
+	else if (*s == 'd')
+	{
+		d = va_arg(ap, int);
+		printf("%i\n", d);
+	}
+	else if (*s == 'c')
+	{
+		c = va_arg(ap, int);
+		printf("%i %zu\n", c, sizeof(c));
+	}
+	return (len);
+}
+*/
+
+int			ft_printf(char *s, ...)
+{
+	va_list	ap;
+	size_t	len;
+	char	*to_print;
+//	char	*tmp;
+
 	va_start(ap, s);
+	len = 0;
+	to_print = ft_strnew(len);
 	while (*s)
 	{
-		smb++;
-		if (*s == '%' && s - dup > 0)
-		{
-			write(1, dup, s - dup);
-			write(1, "\n", 1);
-//			e = va_arg(ap, char *);
-//			printf("%s\n", e);
-		}
+//		if (*s == '\')
+//			parse_backslash();
+//		else if (*s == '%')
+			//len += parse_param(s + 1, ap, char **to_print);
+//		else
+			len += parse_text(&s, &to_print, len);
 		s++;
 	}
-	return (smb);
+//	write(1, to_print, len);
+	printf("%s\n", to_print);
+	return (len);
 }
