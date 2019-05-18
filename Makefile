@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/05/12 16:36:58 by pberge           ###   ########.fr        #
+#    Updated: 2019/05/18 16:45:07 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,16 @@ OBJF = obj
 OBJS = $(SRCS:.c=.o)
 OBJ = $(addprefix $(OBJF)/, $(OBJS))
 DEL = rm -rf
-INC = -I./inc
+INC = -I./inc -I./libft
+LIB = -L./libft -lft
 
 $(NAME): $(OBJ)
-	gcc $(WFLAGS) $(INC) $(OBJ) -o $(NAME)
+	gcc $(INC) $(LIB) $(OBJ) -o $(NAME)
 
-all: $(OBJF) $(NAME)
+all: $(NAME)
 
-$(OBJF)/%.o: $(SRCF)/%.c
-	gcc $(WFLAGS) $(INC) -c -o $@ $<
+$(OBJF)/%.o: $(SRCF)/%.c $(OBJF)
+	gcc $(INC) -c -o $@ $<
 
 $(OBJF):
 	mkdir $(OBJF)
