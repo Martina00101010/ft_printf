@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/18 16:53:09 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/19 20:51:41 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(void)
 	char	*s;
 
 	s = "Printing variable";
-	ft_printf("ft_     ");
-//	   printf("printf  \n");
+//	ft_printf("%s % %s", s, s);
+	   printf("%s %s", s, s);
 	return (0);
 }
