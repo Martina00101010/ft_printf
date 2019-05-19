@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/19 20:00:42 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/19 21:02:46 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int	parse_text(char **s, char **to_print, int size)
 	int		len;
 	char	*tmp;
 
-	printf("    len %zu  |%s|\n", ft_strlen(*s), *s);
 	len = 0;
 	while ((*s)[len] != '%' && (*s)[len] != '\0')
 		len++;
@@ -61,7 +60,6 @@ static int	parse_param(char **s, char **to_print, va_list ap, size_t size)
 		free(tmp);
 		*s += 2;
 	}
-	printf("pointer |%s|\n", *s);
 /*	else if (*s == 'd')
 	{
 		d = va_arg(ap, int);
@@ -86,20 +84,12 @@ int			ft_printf(char *s, ...)
 	to_print = ft_strnew(len);
 	while (*s)
 	{
-		printf("before |%s| |%s|\n", to_print, s);
 //		if (*s == '\')
 //			parse_backslash();
 		if (*s == '%')
-		{
 			len += parse_param(&s, &to_print, ap, len);
-	printf("|%s|len %i\n", to_print, len);
-		}
 		else
-		{
 			len += parse_text(&s, &to_print, len);
-	printf("|%s|len %i\n", to_print, len);
-		}
-		printf("after  |%s| |%s|\n\n", to_print, s);
 	}
 	write(1, to_print, len);
 	return (len);
