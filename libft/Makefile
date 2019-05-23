@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 18:46:58 by pberge            #+#    #+#              #
-#    Updated: 2019/01/21 22:41:07 by pberge           ###   ########.fr        #
+#    Updated: 2019/05/23 18:46:08 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,22 +42,25 @@ OBJ = $(SRC:.c=.o)
 HEADER = -I.
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
+	@ar rc $(NAME) $(OBJ)
+	@echo compiled libft
 
 all: $(NAME)
 
 $(OBJ): $(SRC)
-	gcc $(CFLAGS) -c $(SRC)
+	@gcc $(CFLAGS) -c $(SRC)
 
 g:
 	gcc $(FLAGS) test_itoa.c -o test_libft -L. -lft -I.
 	./test_libft
 
 clean:
-	$(DEL) $(OBJ)
+	@$(DEL) $(OBJ)
+	@echo deleted objects
 
 fclean: clean
-	$(DEL) $(NAME)
+	@$(DEL) $(NAME)
+	@echo deleted executable
 
 re:
 	make fclean all
