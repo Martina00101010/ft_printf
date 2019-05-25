@@ -6,14 +6,14 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/05/23 18:50:17 by pberge           ###   ########.fr        #
+#    Updated: 2019/05/25 12:54:06 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 WFLAGS = -Wall -Wextra -Werror
 SRCF = src
-SRCS = ft_printf.c
+SRCS = ft_printf.c parsers.c
 SRC = $(addprefix $(SRCF)/, $(SRCS))
 OBJF = obj
 OBJS = $(SRCS:.c=.o)
@@ -36,6 +36,9 @@ $(OBJF):
 
 $(LIBNAME):
 	make -C libft
+
+c:
+	gcc compile/main.c -I./libft -L./libft -lft -I./inc -L. -lftprintf -o test
 
 clean:
 	make clean -C libft
