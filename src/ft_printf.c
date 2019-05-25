@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/23 22:06:06 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/25 16:02:13 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libft.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include "libftprintf.h"
 
 static int	parse_text(char **s, char **to_print, int size)
 {
@@ -40,25 +41,19 @@ static int	parse_backlash()
 }
 */
 
-static int	parse_param(char **s, char **to_print, va_list ap, size_t size)
+static int	parse_param(char **s, char **to_print, va_list ap, int size)
 {
 	int		len;
 //	int		d;
 //	char	c;
-	char	*sparam;
-	char	*tmp;
 
 	len = 0;
-	if (*(*s + 1) == 's')
+	(*s)++;
+
+	if (**s == 's')
 	{
-		sparam = va_arg(ap, char *);
-		len = ft_strlen(sparam);
-		tmp = *to_print;
-		*to_print = ft_strnew(size + len);
-		ft_strcat(*to_print, tmp);
-		ft_strcat(*to_print + size, sparam);
-		free(tmp);
-		*s += 2;
+		len += parse_string(ap, to_print, size);
+		*s += 1;
 	}
 /*	else if (*s == 'd')
 	{
@@ -91,6 +86,7 @@ int			ft_printf(char *s, ...)
 		else
 			len += parse_text(&s, &to_print, len);
 	}
+	va_end(ap);
 	write(1, to_print, len);
 	return (len);
 }
