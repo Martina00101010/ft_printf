@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/25 18:41:12 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/26 19:01:24 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static t_flags	parse_flags(char **s)
 		flg.param = ft_atoi(*s);
 		*s += ptr - *s + 1;
 	}
-	if ((flg.flags = switch_flag(s)))
-		(*s)++;
+	flg.flags = switch_flag(s);
 	if ((flg.width = ft_atoi(*s)))
 		while (**s >= '0' && **s <= '9')
 			(*s)++;
@@ -79,40 +78,32 @@ static t_flags	parse_flags(char **s)
 	return (flg);
 }
 
-static int	parse_text(char **s, char **to_print, int size)
+static int	parse_text(char **s, char **to_print, int vlen)
 {
-	int		len;
+	int		slen;
 	char	*tmp;
 
-	len = 0;
-	while ((*s)[len] != '%' && (*s)[len] != '\0')
-		len++;
+	slen = 0;
+	while ((*s)[slen] != '%' && (*s)[slen] != '\0')
+		slen++;
 	tmp = *to_print;
-	*to_print = ft_strnew(size + len);		// NULL validation
+	*to_print = ft_strnew(vlen + slen);		// NULL validation
 	ft_strcat(*to_print, tmp);
-	ft_strncat(*to_print + size, *s, len);
+	ft_strncat(*to_print + vlen, *s, slen);
 	free(tmp);
-	*s += len;
-	return (len);
+	*s += slen;
+	return (slen);
 }
-
-/*
-static int	parse_backlash()
-{
-	return (1);
-}
-*/
 
 #include <stdio.h>
 
-static int	parse_param(char **s, char **to_print, va_list ap, int size)
+static int	parse_param(char **s, t_vaio *v)
 {
 	int		len;
 //	int		d;
 //	char	c;
 	t_flags	flg;
 
-	len = 0;
 	(*s)++;
 	flg = parse_flags(s);
 	printf("param %i\n", flg.param);
@@ -126,10 +117,7 @@ static int	parse_param(char **s, char **to_print, va_list ap, int size)
 	printf("+     %i\n", flg.flags & 1 << 4);
 	printf("%%     %i\n", flg.flags & 1 << 5);
 	if (**s == 's')
-	{
-		len += parse_string(ap, to_print, size);
-		*s += 1;
-	}
+		v->len += parse_string(v, flg);
 /*	else if (*s == 'd')
 	{
 		d = va_arg(ap, int);
@@ -140,28 +128,26 @@ static int	parse_param(char **s, char **to_print, va_list ap, int size)
 		c = va_arg(ap, int);
 //		printf("%i %zu\n", c, sizeof(c));
 	}
-*/	return (len);
+*/	(*s)++;
+	return (len);
 }
 
 int			ft_printf(char *s, ...)
 {
-	va_list	ap;
-	int		len;
+	t_vaio	v;
 	char	*to_print;
 
-	va_start(ap, s);
-	len = 0;
-	to_print = ft_strnew(len);
+	va_start(v.ap, s);
+	v.len = 0;
+	v.to_print = ft_strnew(v.len);
 	while (*s)
 	{
-//		if (*s == '\')
-//			parse_backslash();
 		if (*s == '%')
-			len += parse_param(&s, &to_print, ap, len);
+			v.len += parse_param(&s, &v);
 		else
-			len += parse_text(&s, &to_print, len);
+			v.len += parse_text(&s, &(v.to_print), v.len);
 	}
-	va_end(ap);
-	write(1, to_print, len);
-	return (len);
+	va_end(v.ap);
+	write(1, v.to_print, v.len);
+	return (v.len);
 }
