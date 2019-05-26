@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 18:46:58 by pberge            #+#    #+#              #
-#    Updated: 2019/05/23 18:46:08 by pberge           ###   ########.fr        #
+#    Updated: 2019/05/26 16:31:31 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC = ft_memset.c	ft_memalloc.c	ft_tolower.c	\
 		  ft_islower.c	ft_isupper.c	ft_swap_ints.c	\
 		  ft_iterative_power.c			\
 		  ft_recursive_power.c			\
-		  ft_lstadd_to_end.c
+		  ft_lstadd_to_end.c			ft_strrcpy.c
 
 OBJ = $(SRC:.c=.o)
 HEADER = -I.
