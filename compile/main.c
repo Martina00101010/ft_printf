@@ -6,13 +6,15 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/25 18:47:14 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/26 19:03:07 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libftprintf.h"
 #include "libft.h"
+
+#include <string.h>
 
 int		main(void)
 {
@@ -23,8 +25,7 @@ int		main(void)
 
 	c = -127;
 	s = "0123456789";
-//	s = "";
-	printf("%d\n", ft_printf("ft_printf %s", s));
-//	   printf("%d\n", printf("printf    |%20.3s|  ", ""));
+	printf("ret %i\n", ft_printf("ft_printf |%20s|\n", s));
+//	   printf("%d\n", printf("printf    |%10.3s|  ", s));
 	return (0);
 }
