@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/26 19:01:24 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/27 20:50:25 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "libftprintf.h"
+
+/*
+** switch on flags from parse-string
+*/
 
 char	switch_flag(char **s)
 {
@@ -78,6 +82,10 @@ static t_flags	parse_flags(char **s)
 	return (flg);
 }
 
+/*
+** detaching text from string-in-parse ; appending detached to print-string
+*/
+
 static int	parse_text(char **s, char **to_print, int vlen)
 {
 	int		slen;
@@ -96,6 +104,10 @@ static int	parse_text(char **s, char **to_print, int vlen)
 }
 
 #include <stdio.h>
+
+/*
+** choosing param type
+*/
 
 static int	parse_param(char **s, t_vaio *v)
 {
