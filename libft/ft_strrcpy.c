@@ -6,24 +6,16 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 16:24:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/27 20:40:30 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/27 20:45:32 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strrcpy(char *dst, char *src, int len)
 {
-	while (len > -1)
-	{
-		*dst = *src;
-		dst--;
-		src--;
-		len--;
-	}
+	while (len-- > -1)
+		*dst-- = *src--;
 	while (*dst == '\0')
-	{
-		*dst = ' ';
-		dst--;
-	}
+		*dst-- = ' ';
 	return (dst);
 }
 
