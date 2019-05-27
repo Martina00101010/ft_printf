@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/26 19:03:07 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/27 21:19:28 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ int		main(void)
 	char	*s1;
 	int		d;
 	char	c;
+	char	*parse;
 
+	parse = "|%3.1s| ";
 	c = -127;
 	s = "0123456789";
-	printf("ret %i\n", ft_printf("ft_printf |%20s|\n", s));
-//	   printf("%d\n", printf("printf    |%10.3s|  ", s));
+	printf("%i ft_printf\n", ft_printf(parse, s));
+	   printf("%d printf\n", printf(parse, s));
 	return (0);
 }
