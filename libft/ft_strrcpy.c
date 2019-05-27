@@ -6,11 +6,9 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 16:24:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/26 18:57:51 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/27 20:40:30 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 char	*ft_strrcpy(char *dst, char *src, int len)
 {
@@ -20,6 +18,11 @@ char	*ft_strrcpy(char *dst, char *src, int len)
 		dst--;
 		src--;
 		len--;
+	}
+	while (*dst == '\0')
+	{
+		*dst = ' ';
+		dst--;
 	}
 	return (dst);
 }
