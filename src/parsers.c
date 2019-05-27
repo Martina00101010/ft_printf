@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:35:59 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/26 19:04:43 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/27 20:32:37 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		parse_string(t_vaio *v, t_flags flg)
 	v->to_print = ft_strnew(v->len + cpylen);
 	ft_strcat(v->to_print, tmp);
 	free(tmp);
-	ft_strrcpy(v->to_print + v->len + cpylen, sparam + slen, slen + 1);
+	ft_strrcpy(v->to_print + v->len + cpylen, sparam + slen, slen);
 	return (cpylen);
 }
