@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:35:59 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/27 20:32:37 by pberge           ###   ########.fr       */
+/*   Updated: 2019/05/27 21:18:10 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "libftprintf.h"
 #include <stdlib.h>
 #include <stdarg.h>
+
+/*
+** taking string from va list ; applying flags to string
+*/
 
 int		parse_string(t_vaio *v, t_flags flg)
 {
@@ -29,6 +33,14 @@ int		parse_string(t_vaio *v, t_flags flg)
 	v->to_print = ft_strnew(v->len + cpylen);
 	ft_strcat(v->to_print, tmp);
 	free(tmp);
-	ft_strrcpy(v->to_print + v->len + cpylen, sparam + slen, slen);
+	if (flg.precision < slen && flg.precision > -1)
+		slen= flg.precision;
+	if (flg.flags & 1 << 3)
+	{
+		ft_strncat(v->to_print, sparam, slen);
+		ft_memset(v->to_print + v->len + slen, ' ', cpylen - slen);
+	}
+	else
+		ft_strrcpy(v->to_print + v->len + cpylen, sparam + slen, slen);
 	return (cpylen);
 }
