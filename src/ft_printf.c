@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/06/08 15:43:01 by pberge           ###   ########.fr       */
+/*   Updated: 2019/06/08 15:51:42 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,7 @@ static int	parse_param(char **s, t_vaio *v)
 		c = va_arg(ap, int);
 //		printf("%i %zu\n", c, sizeof(c));
 	}
-*/	
-	(*s)++;
+*/	(*s)++;
 	return (len);
 }
 
