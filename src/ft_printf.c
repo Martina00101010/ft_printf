@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/27 20:50:25 by pberge           ###   ########.fr       */
+/*   Updated: 2019/06/08 15:43:01 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static t_flags	parse_flags(char **s)
 	if (**s == '.')
 	{
 		(*s)++;
+		flg.flags |= 1 << 7;
 		flg.precision = ft_atoi(*s);
 		while (**s >= '0' && **s <= '9')
 			(*s)++;
@@ -103,8 +104,6 @@ static int	parse_text(char **s, char **to_print, int vlen)
 	return (slen);
 }
 
-#include <stdio.h>
-
 /*
 ** choosing param type
 */
@@ -129,7 +128,7 @@ static int	parse_param(char **s, t_vaio *v)
 	printf("+     %i\n", flg.flags & 1 << 4);
 	printf("%%     %i\n", flg.flags & 1 << 5);
 	if (**s == 's')
-		v->len += parse_string(v, flg);
+		len = parse_string(v, flg);
 /*	else if (*s == 'd')
 	{
 		d = va_arg(ap, int);
@@ -140,7 +139,8 @@ static int	parse_param(char **s, t_vaio *v)
 		c = va_arg(ap, int);
 //		printf("%i %zu\n", c, sizeof(c));
 	}
-*/	(*s)++;
+*/	
+	(*s)++;
 	return (len);
 }
 
