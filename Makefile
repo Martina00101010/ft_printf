@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/05/26 14:18:16 by pberge           ###   ########.fr        #
+#    Updated: 2019/06/09 18:35:46 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ $(NAME): $(LIBNAME) $(OBJ)
 all: $(NAME)
 
 $(OBJF)/%.o: $(SRCF)/%.c $(OBJF)
-	gcc $(INC) -c -o $@ $<
+	gcc $(WFLAGS) $(INC) -c -o $@ $<
 
 $(OBJF):
 	mkdir $(OBJF)
