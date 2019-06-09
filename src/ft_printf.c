@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/06/09 17:58:04 by pberge           ###   ########.fr       */
+/*   Updated: 2019/06/09 18:51:32 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,24 @@
 #include <stdlib.h>
 #include "libftprintf.h"
 
-int		parse_percent(char **s, t_vaio *v, t_flags flg)
+int		parse_length(char **s, t_flags *flg)
+{
+	int		len;
+
+	len = 0;
+
+	if (**s == 'h' && *(*s + 1) == 'h')
+		flg->length |= 1;
+	else if (**s == 'h')
+		flg->length |= 1 << 1;
+	else if (**s == 'l' && *(*s + 1) == 'l')
+		flg->length |= 1 << 2;
+	else if (**s == 'l')
+		flg->length |= 1 << 3;
+	return (len);
+}
+
+int		parse_percent(t_vaio *v, t_flags flg)
 {
 	char	*tmp;
 	int		len;
@@ -32,9 +49,9 @@ int		parse_percent(char **s, t_vaio *v, t_flags flg)
 		v->to_print[v->len] = '%';
 		ft_memset(v->to_print + v->len + 1, ' ', len - 1);
 	}
-	ft_strrcpy(v->to_print + v->len + len - 1, "%", 1,
+	else
+		ft_strrcpy(v->to_print + v->len + len - 1, "%", 1,
 			flg.flags & 1 << 1 ? '0' : ' ');
-	(*s)++;
 	return (len);
 }
 
@@ -51,7 +68,7 @@ char	switch_flag(char **s)
 			**s == '-' || **s == '+')
 	{
 		if (**s == '#')
-			flags |= 1 << 0;
+			flags |= 1;
 		if (**s == '0')
 			flags |= 1 << 1;
 		if (**s == ' ')
@@ -60,8 +77,6 @@ char	switch_flag(char **s)
 			flags |= 1 << 3;
  		if (**s == '+')
 			flags |= 1 << 4;
-//		if (**s == '%')
-//			flags |= 1 << 5;
 		(*s)++;
 	}
 	return (flags);
@@ -77,12 +92,10 @@ char	switch_flag(char **s)
 
 static t_flags	parse_flags(char **s)
 {
-	int		len;
 	char	*ptr;
 	t_flags	flg;
 
 	ft_memset((void *)&flg, 0, sizeof(t_flags));
-	len = 0;
 	if ((ptr = ft_strchr(*s, '$')))
 	{
 		flg.param = ft_atoi(*s);
@@ -100,6 +113,7 @@ static t_flags	parse_flags(char **s)
 		while (**s >= '0' && **s <= '9')
 			(*s)++;
 	}
+	parse_length(s, &flg);
 	return (flg);
 }
 
@@ -138,7 +152,9 @@ static int	parse_param(char **s, t_vaio *v)
 	(*s)++;
 	flg = parse_flags(s);
 	if (**s == '%')
-		return (parse_percent(s, v, flg));
+		len = parse_percent(v, flg);
+	else if (**s == 's')
+		len = parse_string(v, flg);
 /*	printf("param %i\n", flg.param);
 	printf("fill  %i\n", flg.fill_flag);
 	printf("width %i\n", flg.width);
@@ -149,8 +165,7 @@ static int	parse_param(char **s, t_vaio *v)
 	printf("-     %i\n", flg.flags & 1 << 3);
 	printf("+     %i\n", flg.flags & 1 << 4);
 	printf("%%     %i\n", flg.flags & 1 << 5);
-*/	if (**s == 's')
-		len = parse_string(v, flg);
+*/
 /*	else if (*s == 'd')
 	{
 		d = va_arg(ap, int);
@@ -168,7 +183,6 @@ static int	parse_param(char **s, t_vaio *v)
 int			ft_printf(char *s, ...)
 {
 	t_vaio	v;
-	char	*to_print;
 
 	va_start(v.ap, s);
 	v.len = 0;
