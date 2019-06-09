@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/06/09 18:00:40 by pberge           ###   ########.fr       */
+/*   Updated: 2019/06/09 18:31:34 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct	s_flags
 	int			fill_flag;
 	int			width;
 	int			precision;
+	char		length;
 	char		flags;
 }				t_flags;
 
