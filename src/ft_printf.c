@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/06/08 15:51:42 by pberge           ###   ########.fr       */
+/*   Updated: 2019/06/09 17:58:04 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,27 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "libftprintf.h"
+
+int		parse_percent(char **s, t_vaio *v, t_flags flg)
+{
+	char	*tmp;
+	int		len;
+
+	len = flg.width > 1 ? flg.width : 1;
+	tmp = v->to_print;
+	v->to_print = ft_strnew(v->len + len);
+	ft_strcat(v->to_print, tmp);
+	free(tmp);
+	if (flg.flags & 1 << 3)
+	{
+		v->to_print[v->len] = '%';
+		ft_memset(v->to_print + v->len + 1, ' ', len - 1);
+	}
+	ft_strrcpy(v->to_print + v->len + len - 1, "%", 1,
+			flg.flags & 1 << 1 ? '0' : ' ');
+	(*s)++;
+	return (len);
+}
 
 /*
 ** switch on flags from parse-string
@@ -27,7 +48,7 @@ char	switch_flag(char **s)
 
 	flags = 0;
 	while (**s == '#' || **s == '0' || **s == ' ' ||
-			**s == '-' || **s == '+' || **s == '%')
+			**s == '-' || **s == '+')
 	{
 		if (**s == '#')
 			flags |= 1 << 0;
@@ -37,17 +58,16 @@ char	switch_flag(char **s)
 			flags |= 1 << 2;
 		if (**s == '-')
 			flags |= 1 << 3;
-		if (**s == '+')
+ 		if (**s == '+')
 			flags |= 1 << 4;
-		if (**s == '%')
-			flags |= 1 << 5;
+//		if (**s == '%')
+//			flags |= 1 << 5;
 		(*s)++;
 	}
 	return (flags);
 }
 
 /*
-**  ft_atoi <- param num
 **  skip dollar
 **  consider filling flag
 **  ft_atoi <- width
@@ -117,7 +137,9 @@ static int	parse_param(char **s, t_vaio *v)
 
 	(*s)++;
 	flg = parse_flags(s);
-	printf("param %i\n", flg.param);
+	if (**s == '%')
+		return (parse_percent(s, v, flg));
+/*	printf("param %i\n", flg.param);
 	printf("fill  %i\n", flg.fill_flag);
 	printf("width %i\n", flg.width);
 	printf("preci %i\n", flg.precision);
@@ -127,7 +149,7 @@ static int	parse_param(char **s, t_vaio *v)
 	printf("-     %i\n", flg.flags & 1 << 3);
 	printf("+     %i\n", flg.flags & 1 << 4);
 	printf("%%     %i\n", flg.flags & 1 << 5);
-	if (**s == 's')
+*/	if (**s == 's')
 		len = parse_string(v, flg);
 /*	else if (*s == 'd')
 	{
