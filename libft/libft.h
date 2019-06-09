@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 18:40:06 by pberge            #+#    #+#             */
-/*   Updated: 2019/05/26 18:44:45 by pberge           ###   ########.fr       */
+/*   Updated: 2019/06/09 15:20:14 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ void				ft_swap_ints(int *a, int *b);
 void				ft_lstadd_to_end(t_list **lst, t_list *new);
 int					ft_recursive_power(int nb, int power);
 int					ft_iterative_power(int nb, int power);
-char				*ft_strrcpy(char *dst, char *src, int len);
+char				*ft_strrcpy(char *dst, char *src, int len, char c);
 
 #endif
