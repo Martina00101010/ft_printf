@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/06/09 17:54:04 by pberge           ###   ########.fr       */
+/*   Updated: 2019/06/09 18:23:34 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 int		main(void)
 {
-	printf("|%d", ft_printf("%03%"));
+	printf("|%d\n", printf("%-5%"));
+	printf("|%d", ft_printf("%-5%"));
 /*	short		si;
 	int			i;
 	signed char	sc;
