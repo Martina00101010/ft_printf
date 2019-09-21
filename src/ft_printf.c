@@ -6,13 +6,12 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/06/09 19:41:33 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/21 06:19:31 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdio.h>
-#include "libft.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include "libftprintf.h"
@@ -44,7 +43,7 @@ int		parse_percent(t_vaio *v, t_flags flg)
 	v->to_print = ft_strnew(v->len + len);
 	ft_strcat(v->to_print, tmp);
 	free(tmp);
-	if (flg.flags & 1 << 3)
+	if (flg.flags & MINUS)
 	{
 		v->to_print[v->len] = '%';
 		ft_memset(v->to_print + v->len + 1, ' ', len - 1);
@@ -68,15 +67,15 @@ char	switch_flag(char **s)
 			**s == '-' || **s == '+')
 	{
 		if (**s == '#')
-			flags |= 1;
+			flags |= SHARP;
 		if (**s == '0')
-			flags |= 1 << 1;
+			flags |= ZERO;
 		if (**s == ' ')
-			flags |= 1 << 2;
+			flags |= SPACE;
 		if (**s == '-')
-			flags |= 1 << 3;
+			flags |= MINUS;
  		if (**s == '+')
-			flags |= 1 << 4;
+			flags |= PLUS;
 		(*s)++;
 	}
 	return (flags);
@@ -150,9 +149,12 @@ static int	parse_param(char **s, t_vaio *v)
 	t_flags	flg;
 
 	(*s)++;
+	len = 0;
 	flg = parse_flags(s);
 	if (**s == '%')
 		len = parse_percent(v, flg);
+	else if (**s == 'i')
+		len = parse_int(v, flg);
 	else if (**s == 's')
 		len = parse_string(v, flg);
 /*	printf("param %i\n", flg.param);
@@ -176,7 +178,8 @@ static int	parse_param(char **s, t_vaio *v)
 		c = va_arg(ap, int);
 //		printf("%i %zu\n", c, sizeof(c));
 	}
-*/	(*s)++;
+*/
+	(*s)++;
 	return (len);
 }
 
@@ -184,9 +187,10 @@ int			ft_printf(char *s, ...)
 {
 	t_vaio	v;
 
-	va_start(v.ap, s);
+//	ft_bzero(&v, sizeof(t_vaio));
 	v.len = 0;
-	v.to_print = ft_strnew(v.len);
+	va_start(v.ap, s);
+	v.to_print = ft_strnew(BUFFLEN);
 	while (*s)
 	{
 		if (*s == '%')
@@ -196,5 +200,6 @@ int			ft_printf(char *s, ...)
 	}
 	va_end(v.ap);
 	write(1, v.to_print, v.len);
+//	ft_putnbr(v.len);
 	return (v.len);
 }

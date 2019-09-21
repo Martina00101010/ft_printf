@@ -6,11 +6,11 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/06/09 18:23:34 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/21 12:10:30 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+//#include <stdio.h>
 #include "libftprintf.h"
 #include "libft.h"
 
@@ -18,8 +18,34 @@
 
 int		main(void)
 {
-	printf("|%d\n", printf("%-5%"));
-	printf("|%d", ft_printf("%-5%"));
+/*	char *s = "%+21.15i";
+	int	integer = 123456789;
+	printf("\t%i", printf(s, integer));
+	printf("\t%i", ft_printf(s, integer));*/
+	
+//	printf("%05i", 43);
+//	printf("\n");
+//	printf("%08.5i", 34);
+
+	ft_printf("%05i", 43);
+	ft_putchar('\n');
+	ft_printf("%08.5i", 34);
+
+	//printf("%i", printf("this %i num", -267));
+	//ft_printf("this %i num", -267);
+
+	//printf("\t%i", printf("%21.12i|", 123456789));
+//	printf("\n");
+//	printf("\t%i", ft_printf("%15.20i", 123456789));
+	//ft_printf("%-21.12i|", 123456789);
+
+//	ft_printf(s, integer);
+//	printf("\n");
+//	printf(s, integer);
+
+//	printf("\n%i\n", printf("%s", "abc"));
+/*	printf("|%d\n", printf("%-5%"));
+	printf("|%d", ft_printf("%-5%"));*/
 /*	short		si;
 	int			i;
 	signed char	sc;

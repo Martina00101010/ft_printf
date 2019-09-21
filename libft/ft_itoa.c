@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 18:32:21 by pberge            #+#    #+#             */
-/*   Updated: 2019/01/21 23:13:43 by pberge           ###   ########.fr       */
+/*   Updated: 2019/03/23 15:21:59 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ char		*ft_itoa(int n)
 
 	min = 0;
 	len = int_length(n);
-	if (!(s = (char *)malloc(len + 1)))
-		return (NULL);
-	s[len] = '\0';
 	if (n == 0)
 		return (ft_strdup("0"));
 	else if (n == -2147483648)
@@ -58,6 +55,9 @@ char		*ft_itoa(int n)
 		n *= -1;
 		min = 1;
 	}
+	if (!(s = (char *)malloc(len + 1)))
+		return (NULL);
+	s[len] = '\0';
 	fill_s(&s, &len, &n);
 	if (min)
 		s[0] = '-';

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/06/09 18:31:34 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/21 01:44:11 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+#include "libft.h"
+
+# define BUFFLEN 1023
+# define SHARP 1
+# define ZERO 1 << 1
+# define SPACE 1 << 2
+# define MINUS 1 << 3
+# define PLUS 1 << 4
 
 typedef struct	s_flags
 {
@@ -34,5 +43,6 @@ typedef struct	s_vaio
 
 int		ft_printf(char *s, ...);
 int		parse_string(t_vaio *v, t_flags flg);
+int		parse_int(t_vaio *v, t_flags flg);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 18:46:58 by pberge            #+#    #+#              #
-#    Updated: 2019/05/26 16:31:31 by pberge           ###   ########.fr        #
+#    Updated: 2019/09/20 14:57:11 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,29 +38,23 @@ SRC = ft_memset.c	ft_memalloc.c	ft_tolower.c	\
 		  ft_recursive_power.c			\
 		  ft_lstadd_to_end.c			ft_strrcpy.c
 
-OBJ = $(SRC:.c=.o)
-HEADER = -I.
+OBJF = obj/
+OBJ_ = $(SRC:.c=.o)
+OBJ = $(addprefix $(OBJF), $(OBJ_))
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
-	@echo compiled libft
 
 all: $(NAME)
 
-$(OBJ): $(SRC)
-	@gcc $(CFLAGS) -c $(SRC)
-
-g:
-	gcc $(FLAGS) test_itoa.c -o test_libft -L. -lft -I.
-	./test_libft
+$(OBJF)%.o : %.c
+	@gcc $(CFLAGS) -c $< -o $@
 
 clean:
 	@$(DEL) $(OBJ)
-	@echo deleted objects
 
 fclean: clean
 	@$(DEL) $(NAME)
-	@echo deleted executable
 
 re:
-	make fclean all
+	@make fclean all
