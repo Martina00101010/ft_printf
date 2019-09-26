@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/21 06:19:31 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/26 18:11:53 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static t_flags	parse_flags(char **s)
 	if (**s == '.')
 	{
 		(*s)++;
-		flg.flags |= 1 << 7;
+		flg.flags |= PRECISION;
 		flg.precision = ft_atoi(*s);
 		while (**s >= '0' && **s <= '9')
 			(*s)++;

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:10:42 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/21 12:26:09 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/26 19:35:55 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,22 @@ t_flags	align_left(t_flags flg, int iparam, char *to_print)
 	int		sign;
 	char	sym;
 	int		num_spaces;
+	int		sp;
 
 	sym = iparam < 0 ? '-' : '+';
 	sign = (iparam < 0 || flg.flags & PLUS) ? 1 : 0;
+	sp = (flg.flags & SPACE && !sign) ? 1 : 0;	
 	integer = ft_itoa_unsigned(iparam);
 	ilen = ft_strlen(integer);
-	flg.width = flg.width < ilen + sign ? ilen + sign : flg.width;
-	flg.width = flg.width < flg.precision ? flg.precision + sign : flg.width;
+	flg.width = flg.width < ilen + (sign || sp) ? ilen + (sign || sp) : flg.width;
+	flg.width = flg.width < flg.precision ? flg.precision + (sign || sp) : flg.width;
 	flg.precision = flg.precision > ilen ? flg.precision - ilen : 0;
-	num_spaces = flg.width - sign - flg.precision - ilen;
-	ft_memset(to_print, sym, sign);
-	ft_memset(to_print + sign, '0', flg.precision);
+	num_spaces = flg.width - (sign || sp) - flg.precision - ilen;
+	ft_memset(to_print, ' ', sp);
+	ft_memset(to_print + sp, sym, sign);
+	ft_memset(to_print + sp + sign, '0', flg.precision);
 	ft_strcat(to_print, integer);
-	ft_memset(to_print + sign + flg.precision + ilen, ' ', num_spaces);
+	ft_memset(to_print + sp + sign + flg.precision + ilen, ' ', num_spaces);
 	return (flg);
 }
 
@@ -68,15 +71,19 @@ t_flags	align_right(t_flags flg, int iparam, char *to_print)
 	int		sign;
 	char	sym;
 	int		num_spaces;
+	int		sp;
 
+	sp = flg.flags & SPACE ? 1 : 0;
 	sym = iparam < 0 ? '-' : '+';
 	sign = (iparam < 0 || flg.flags & PLUS) ? 1 : 0;
 	integer = ft_itoa_unsigned(iparam);
 	ilen = ft_strlen(integer);
-	flg.width = flg.width < ilen + sign ? ilen + sign : flg.width;
-	flg.width = flg.width < flg.precision ? flg.precision + sign: flg.width;
-	flg.precision = flg.precision > ilen ? flg.precision - ilen : 0;
-	//flg.precision = (flg.precision < ilen && (flg.flags & ZERO)) ? flg.width - ilen : flg.precision;
+	flg.width = flg.width < ilen + (sign || sp) ? ilen + (sign || sp) : flg.width;
+	flg.width = flg.width < flg.precision ? flg.precision + (sign || sp) : flg.width;
+	if (flg.flags & PRECISION)
+		flg.precision = flg.precision > ilen ? flg.precision - ilen : 0;
+	else if (flg.flags & ZERO)
+		flg.precision = flg.width - (sign || sp) - ilen;
 	num_spaces = flg.width - sign - flg.precision - ilen;
 	ft_memset(to_print, ' ', num_spaces);
 	ft_memset(to_print + num_spaces, sym, sign);

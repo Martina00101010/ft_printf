@@ -6,11 +6,11 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/21 12:10:30 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/26 19:33:32 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <stdio.h>
+#include <stdio.h>
 #include "libftprintf.h"
 #include "libft.h"
 
@@ -22,14 +22,14 @@ int		main(void)
 	int	integer = 123456789;
 	printf("\t%i", printf(s, integer));
 	printf("\t%i", ft_printf(s, integer));*/
-	
-//	printf("%05i", 43);
-//	printf("\n");
-//	printf("%08.5i", 34);
 
-	ft_printf("%05i", 43);
-	ft_putchar('\n');
-	ft_printf("%08.5i", 34);
+	int	num = -21;
+	   printf("% -05i\n", num);
+	ft_printf("% -05i", num);
+
+//	ft_printf("%05i", 43);
+//	ft_putchar('\n');
+//	ft_printf("%05i", -34);
 
 	//printf("%i", printf("this %i num", -267));
 	//ft_printf("this %i num", -267);

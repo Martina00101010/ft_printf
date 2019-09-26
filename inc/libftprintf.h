@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/21 01:44:11 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/26 18:12:35 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define SPACE 1 << 2
 # define MINUS 1 << 3
 # define PLUS 1 << 4
+# define PRECISION 1 << 7
 
 typedef struct	s_flags
 {
