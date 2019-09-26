@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/26 19:33:32 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/26 20:25:34 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int		main(void)
 	printf("\t%i", printf(s, integer));
 	printf("\t%i", ft_printf(s, integer));*/
 
-	int	num = -21;
-	   printf("% -05i\n", num);
-	ft_printf("% -05i", num);
+	int	num = 0;
+	   printf("%i\n", printf("%-+5.0i", num));
+	printf("%i\n", ft_printf("%-+5.0i", num));
 
 //	ft_printf("%05i", 43);
 //	ft_putchar('\n');

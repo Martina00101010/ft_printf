@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/26 18:11:53 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/26 20:11:10 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ int			ft_printf(char *s, ...)
 	t_vaio	v;
 
 //	ft_bzero(&v, sizeof(t_vaio));
+//	ft_memset(&v, sizeof(t_vaio), 0);
 	v.len = 0;
 	va_start(v.ap, s);
 	v.to_print = ft_strnew(BUFFLEN);
