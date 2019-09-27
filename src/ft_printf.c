@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/27 14:36:49 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/27 21:03:57 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** parsing length modifiers
 */
 
-int		parse_length(char **s, t_flags *flg)
+void	parse_length(char **s, t_flags *flg)
 {
 	int		len;
 
@@ -34,7 +34,11 @@ int		parse_length(char **s, t_flags *flg)
 		flg->length |= LLMOD;
 	else if (**s == 'l')
 		flg->length |= LMOD;
-	return (len);
+	if (flg->length & HHMOD || flg->length & LLMOD)
+		(*s) += 2;
+	else if (flg->length & HMOD || flg->length & LMOD)
+		(*s)++;
+//	return (len);
 }
 
 int		parse_percent(t_vaio *v, t_flags flg)
@@ -164,7 +168,6 @@ static int	parse_param(char **s, t_vaio *v)
 	else if (**s == 's')
 		len = parse_string(v, flg);
 /*	printf("param %i\n", flg.param);
-	printf("fill  %i\n", flg.fill_flag);
 	printf("width %i\n", flg.width);
 	printf("preci %i\n", flg.precision);
 	printf("#     %i\n", flg.flags & 1);
@@ -173,7 +176,11 @@ static int	parse_param(char **s, t_vaio *v)
 	printf("-     %i\n", flg.flags & 1 << 3);
 	printf("+     %i\n", flg.flags & 1 << 4);
 	printf("%%     %i\n", flg.flags & 1 << 5);
-*/
+	printf("hh    %i\n", flg.length & 1);
+	printf("h     %i\n", flg.length & 1 << 1);
+	printf("ll    %i\n", flg.length & 1 << 2);
+	printf("l     %i\n", flg.length & 1 << 3);*/
+
 /*	else if (*s == 'd')
 	{
 		d = va_arg(ap, int);
