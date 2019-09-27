@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:35:59 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/21 01:49:09 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/27 13:58:40 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,9 @@ int		parse_string(t_vaio *v, t_flags flg)
 	sparam = va_arg(v->ap, char *);
 	sparam = (sparam == NULL) ? "(null)" : sparam;
 	slen = ft_strlen(sparam);
-	if ((flg.flags & 1 << 7))
+	if ((flg.flags & PRECISION))
 		slen = flg.precision < slen ? flg.precision : slen;
 	cpylen = flg.width > slen ? flg.width : slen;
-//	tmp = v->to_print;
-//	v->to_print = ft_strnew(v->len + cpylen);
-//	ft_strcat(v->to_print, tmp);
-//	free(tmp);
 	if (flg.flags & MINUS) // minus flag found
 	{
 		ft_strncat(v->to_print, sparam, slen);

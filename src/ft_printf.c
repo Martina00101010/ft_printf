@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/26 20:11:10 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/27 14:36:49 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 #include <stdlib.h>
 #include "libftprintf.h"
 
+/*
+** parsing length modifiers
+*/
+
 int		parse_length(char **s, t_flags *flg)
 {
 	int		len;
@@ -23,13 +27,13 @@ int		parse_length(char **s, t_flags *flg)
 	len = 0;
 
 	if (**s == 'h' && *(*s + 1) == 'h')
-		flg->length |= 1;
+		flg->length |= HHMOD;
 	else if (**s == 'h')
-		flg->length |= 1 << 1;
+		flg->length |= HMOD;
 	else if (**s == 'l' && *(*s + 1) == 'l')
-		flg->length |= 1 << 2;
+		flg->length |= LLMOD;
 	else if (**s == 'l')
-		flg->length |= 1 << 3;
+		flg->length |= LMOD;
 	return (len);
 }
 
@@ -39,10 +43,12 @@ int		parse_percent(t_vaio *v, t_flags flg)
 	int		len;
 
 	len = flg.width > 1 ? flg.width : 1;
+/* oh my! change this */
 	tmp = v->to_print;
 	v->to_print = ft_strnew(v->len + len);
 	ft_strcat(v->to_print, tmp);
 	free(tmp);
+/* till there */
 	if (flg.flags & MINUS)
 	{
 		v->to_print[v->len] = '%';
