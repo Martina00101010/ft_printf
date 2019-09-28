@@ -6,12 +6,11 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/27 21:03:57 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/28 18:28:04 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "libftprintf.h"
@@ -38,7 +37,6 @@ void	parse_length(char **s, t_flags *flg)
 		(*s) += 2;
 	else if (flg->length & HMOD || flg->length & LMOD)
 		(*s)++;
-//	return (len);
 }
 
 int		parse_percent(t_vaio *v, t_flags flg)
@@ -47,12 +45,6 @@ int		parse_percent(t_vaio *v, t_flags flg)
 	int		len;
 
 	len = flg.width > 1 ? flg.width : 1;
-/* oh my! change this */
-	tmp = v->to_print;
-	v->to_print = ft_strnew(v->len + len);
-	ft_strcat(v->to_print, tmp);
-	free(tmp);
-/* till there */
 	if (flg.flags & MINUS)
 	{
 		v->to_print[v->len] = '%';
@@ -138,11 +130,7 @@ static int	parse_text(char **s, char **to_print, int vlen)
 	slen = 0;
 	while ((*s)[slen] != '%' && (*s)[slen] != '\0')
 		slen++;
-	tmp = *to_print;
-	*to_print = ft_strnew(vlen + slen);		// NULL validation
-	ft_strcat(*to_print, tmp);
 	ft_strncat(*to_print + vlen, *s, slen);
-	free(tmp);
 	*s += slen;
 	return (slen);
 }
@@ -163,7 +151,7 @@ static int	parse_param(char **s, t_vaio *v)
 	flg = parse_flags(s);
 	if (**s == '%')
 		len = parse_percent(v, flg);
-	else if (**s == 'i')
+	else if (**s == 'i' || **s == 'd')
 		len = parse_int(v, flg);
 	else if (**s == 's')
 		len = parse_string(v, flg);
@@ -214,6 +202,5 @@ int			ft_printf(char *s, ...)
 	}
 	va_end(v.ap);
 	write(1, v.to_print, v.len);
-//	ft_putnbr(v.len);
 	return (v.len);
 }

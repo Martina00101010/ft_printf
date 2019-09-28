@@ -6,13 +6,13 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/27 21:27:03 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/28 20:01:12 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+//#include <stdio.h>
 #include "libftprintf.h"
-
+/*
 void	print_bits(long long b, int size)
 {
 	int	n;
@@ -25,20 +25,14 @@ void	print_bits(long long b, int size)
 		printf(" ");
 	}
 }
-
+*/
 int		main(void)
 {
-/*	signed char n;
+	int	d;
 
-	n = -128;
-	printf("%hhi ", n);
-	print_bits((long long)n, sizeof(n));*/
-
-	signed char	n;
-
-	n = 1;
-	printf("%hhi", n);
-	printf("\n");
-	ft_printf("%hhi", n);
+	d = 878023;
+//	printf("%i", d);
+//	printf("\n");
+	ft_printf("%s %s %s", "this", "is", "a");
 	return (0);
 }

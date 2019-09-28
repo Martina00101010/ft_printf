@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:10:42 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/27 21:25:49 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/28 19:44:14 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static char	*ft_itoa_unsigned(long long n)
 	long long	tmp;
 
 	len = 1;
-	if (n == -9223372036854775808)
-		return (ft_strdup("-9223372036854775808"));
+	if (n == -9223372036854775808U)
+		return (ft_strdup("9223372036854775808"));
 	if (n < 0)
 		n *= -1;
 	tmp = n;
@@ -116,7 +116,7 @@ long long	get_number(va_list ap, char length)
 		sp = va_arg(ap, int);
 		iparam = (long long)sp;
 	}
-	else if (length == LLMOD)
+	else if (length == LLMOD || length == LMOD)
 		iparam = va_arg(ap, long long);
 	else
 	{
@@ -132,7 +132,6 @@ int		parse_int(t_vaio *v, t_flags flg)
 	char		*integer;
 
 	iparam = get_number(v->ap, flg.length);
-//	iparam = va_arg(v->ap, int);
 	if (flg.flags & MINUS)
 		flg = align_left(flg, iparam, v->to_print + v->len);
 	else
