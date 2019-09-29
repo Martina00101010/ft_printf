@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/09/28 20:02:32 by pberge           ###   ########.fr        #
+#    Updated: 2019/09/29 14:50:10 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ SRCF = src
 SRCS = ft_printf.c	\
 	   parse_s.c	\
 	   parse_i.c	\
-	   output.c
+	   output.c		\
+	   parse_o.c	\
+	   error.c
 LSRC = ft_memset.c	ft_memalloc.c	ft_tolower.c	\
 		  ft_toupper.c	ft_isprint.c	ft_isascii.c	\
 		  ft_isalpha.c	ft_isdigit.c	ft_isalnum.c	\

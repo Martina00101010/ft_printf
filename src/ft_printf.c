@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/28 18:28:04 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/29 16:43:07 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static t_flags	parse_flags(char **s)
 	{
 		(*s)++;
 		flg.flags |= PRECISION;
-		flg.precision = ft_atoi(*s);
+		flg.preci = ft_atoi(*s);
 		while (**s >= '0' && **s <= '9')
 			(*s)++;
 	}
@@ -155,9 +155,11 @@ static int	parse_param(char **s, t_vaio *v)
 		len = parse_int(v, flg);
 	else if (**s == 's')
 		len = parse_string(v, flg);
+	else if (**s == 'o')
+		len = parse_octal(v, flg);
 /*	printf("param %i\n", flg.param);
 	printf("width %i\n", flg.width);
-	printf("preci %i\n", flg.precision);
+	printf("preci %i\n", flg.preci);
 	printf("#     %i\n", flg.flags & 1);
 	printf("0     %i\n", flg.flags & 1 << 1);
 	printf("sp    %i\n", flg.flags & 1 << 2);
@@ -169,12 +171,7 @@ static int	parse_param(char **s, t_vaio *v)
 	printf("ll    %i\n", flg.length & 1 << 2);
 	printf("l     %i\n", flg.length & 1 << 3);*/
 
-/*	else if (*s == 'd')
-	{
-		d = va_arg(ap, int);
-//		printf("%i\n", d);
-	}
-	else if (*s == 'c')
+/*	else if (*s == 'c')
 	{
 		c = va_arg(ap, int);
 //		printf("%i %zu\n", c, sizeof(c));

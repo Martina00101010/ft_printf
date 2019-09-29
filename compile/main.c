@@ -6,14 +6,16 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/28 20:01:12 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/29 22:27:49 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <stdio.h>
+#include <stdio.h>
 #include "libftprintf.h"
-/*
-void	print_bits(long long b, int size)
+
+#include <limits.h>
+
+void	print_bits(int b, int size)
 {
 	int	n;
 
@@ -21,18 +23,19 @@ void	print_bits(long long b, int size)
 	{
 		n = 8;
 		while (--n > -1)
-			printf("%c", b & 1 << n ? '1' : '0');
+			printf("%c", b & 1 << (n + size * 8) ? '1' : '0');
 		printf(" ");
 	}
 }
-*/
+
 int		main(void)
 {
-	int	d;
+	unsigned long long	o;
 
-	d = 878023;
-//	printf("%i", d);
-//	printf("\n");
-	ft_printf("%s %s %s", "this", "is", "a");
+	o = 17;
+	   printf("|%i", printf("%-#5.o", 0));
+	printf("\n");
+	printf("|%i", ft_printf("%-#5.o", 0));
+//	print_bits(o, sizeof(int));
 	return (0);
 }

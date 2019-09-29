@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 18:46:58 by pberge            #+#    #+#              #
-#    Updated: 2019/09/20 14:57:11 by pberge           ###   ########.fr        #
+#    Updated: 2019/09/29 22:32:11 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,11 @@ $(NAME): $(OBJ)
 
 all: $(NAME)
 
-$(OBJF)%.o : %.c
+$(OBJF)%.o : %.c $(OBJF)
 	@gcc $(CFLAGS) -c $< -o $@
+
+$(OBJF):
+	mkdir $(OBJF)
 
 clean:
 	@$(DEL) $(OBJ)

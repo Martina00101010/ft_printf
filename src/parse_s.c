@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:35:59 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/27 13:58:40 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/29 16:43:34 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		parse_string(t_vaio *v, t_flags flg)
 	sparam = (sparam == NULL) ? "(null)" : sparam;
 	slen = ft_strlen(sparam);
 	if ((flg.flags & PRECISION))
-		slen = flg.precision < slen ? flg.precision : slen;
+		slen = flg.preci < slen ? flg.preci : slen;
 	cpylen = flg.width > slen ? flg.width : slen;
 	if (flg.flags & MINUS) // minus flag found
 	{
