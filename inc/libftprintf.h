@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 21:28:55 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 02:08:41 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		parse_int(t_vaio *v, t_flags flg);
 int		parse_octal(t_vaio *v, t_flags flg);
 int		parse_upper_hex(t_vaio *v, t_flags flg);
 int		parse_lower_hex(t_vaio *v, t_flags flg);
+int		parse_unsigned(t_vaio *v, t_flags flg);
 
 /*
 ** error handlers
