@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/09/30 18:07:16 by pberge           ###   ########.fr        #
+#    Updated: 2019/09/30 18:28:13 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS = ft_printf.c	\
 	   parse_i.c	\
 	   output.c		\
 	   parse_o.c	\
+	   parse_x.c	\
 	   error.c		\
 	   parse_flags.c	\
 	   parse_percent.c	\

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 18:12:15 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 00:06:58 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ static int	parse_param(char **s, t_vaio *v)
 		len = parse_string(v, flg);
 	else if (**s == 'o')
 		len = parse_octal(v, flg);
+	else if (**s == 'x')
+		len = parse_lower_hex(v, flg);
+	else if (**s == 'X')
+		len = parse_upper_hex(v, flg);
 /*	printf("param %i\n", flg.param);
 	printf("width %i\n", flg.width);
 	printf("preci %i\n", flg.preci);

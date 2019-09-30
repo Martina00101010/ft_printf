@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 20:08:46 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 18:01:40 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/30 22:40:43 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_output		output_structure(t_flags *flg, unsigned long long oparam)
 {
 	t_output	out;
 
-	ft_memset(&out, 0, sizeof(t_output));
+	ft_bzero(&out, sizeof(t_output));
 	if (oparam == 0 && flg->flags & PRECISION && flg->preci == 0)
 		out.preci_zero = 1;
 	out.sp_flg = (flg->flags & SHARP) ? 1 : 0;
@@ -84,7 +84,7 @@ static t_output		output_structure(t_flags *flg, unsigned long long oparam)
 	return (out);
 }
 
-static unsigned long long		get_number(va_list ap, char length)
+unsigned long long		get_oux_number(va_list ap, char length)
 {
 	unsigned long long	oparam;
 	unsigned char		ucp;
@@ -123,7 +123,7 @@ int		parse_octal(t_vaio *v, t_flags flg)
 	unsigned long long	oparam;
 	t_output			out;
 
-	oparam = get_number(v->ap, flg.length);
+	oparam = get_oux_number(v->ap, flg.length);
 	out = output_structure(&flg, oparam);
 	if (flg.flags & MINUS)
 		align_left(&flg, out, v->to_print + v->len);
