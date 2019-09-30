@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/09/29 14:50:10 by pberge           ###   ########.fr        #
+#    Updated: 2019/09/30 18:07:16 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,10 @@ SRCS = ft_printf.c	\
 	   parse_i.c	\
 	   output.c		\
 	   parse_o.c	\
-	   error.c
+	   error.c		\
+	   parse_flags.c	\
+	   parse_percent.c	\
+	   parse_text.c
 LSRC = ft_memset.c	ft_memalloc.c	ft_tolower.c	\
 		  ft_toupper.c	ft_isprint.c	ft_isascii.c	\
 		  ft_isalpha.c	ft_isdigit.c	ft_isalnum.c	\
@@ -53,13 +56,14 @@ DEL = rm -rf
 INC = -I./inc -I./libft
 #LIB = -L./libft -lft
 #LIBNAME = libft/libft.a
+LIBF = libft
 
 $(NAME): $(OBJF) $(OBJ)
 	@ar rc $(NAME) $(OBJ) 
 
 all: $(NAME)
 
-$(OBJF)/%.o: libft/%.c 
+$(OBJF)/%.o: $(LIBF)/%.c 
 	@gcc $(WFLAGS) $(INC) -c $< -o $@
 
 $(OBJF)/%.o: $(SRCF)/%.c
@@ -75,11 +79,11 @@ c:
 	@gcc compile/main.c -I./libft -I./inc -L. -lftprintf -o test
 
 clean:
-	@make clean -C libft
+	@make clean -C $(LIBF)
 	@$(DEL) $(OBJF)/*.o
 
 fclean:
-	@make fclean -C libft
+	@make fclean -C $(LIBF)
 	@$(DEL) $(OBJF)/*.o
 	@$(DEL) $(NAME)
 

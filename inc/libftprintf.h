@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/29 16:40:47 by pberge           ###   ########.fr       */
+/*   Updated: 2019/09/30 18:05:14 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,28 @@ typedef struct	s_vaio
 }				t_vaio;
 
 int		ft_printf(char *s, ...);
+
+/*
+** parsers of flags
+*/
+
+void	parse_length(char **s, t_flags *flg);
+char	switch_flag(char **s);
+t_flags	parse_flags(char **s);
+
+/*
+** parsers of conversion specifiers
+*/
+
 int		parse_string(t_vaio *v, t_flags flg);
+int		parse_text(char **s, char ** to_print, int vlen);
+int		parse_percent(t_vaio *v, t_flags flg);
 int		parse_int(t_vaio *v, t_flags flg);
 int		parse_octal(t_vaio *v, t_flags flg);
+
+/*
+** error handlers
+*/
 void	ft_memory_error(void *allocated);
 
 #endif

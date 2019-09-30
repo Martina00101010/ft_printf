@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   parse_x.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 15:33:48 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 15:49:22 by pberge           ###   ########.fr       */
+/*   Created: 2019/09/30 14:55:22 by pberge            #+#    #+#             */
+/*   Updated: 2019/09/30 18:13:17 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_bzero(void *s, size_t len)
+int		parse_hex(t_vaio *v, t_flags flg)
 {
-	unsigned char	*tmp;
+	t_output	out;
 
-	if (len == 0)
-		return ;
-	tmp = (unsigned char *)s;
-	while (len--)
-		*tmp++ = 0;
+	ft_bzero(&out, sizeof(t_output));
+	return (flg.width);
 }

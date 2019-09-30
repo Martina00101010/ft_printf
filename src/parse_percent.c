@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_percent.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 15:50:28 by pberge           ###   ########.fr       */
+/*   Created: 2019/09/30 17:48:28 by pberge            #+#    #+#             */
+/*   Updated: 2019/09/30 17:48:56 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libftprintf.h"
 
-#include <limits.h>
-
-void	print_bits(int b, int size)
+int		parse_percent(t_vaio *v, t_flags flg)
 {
-	int	n;
+	char	*tmp;
+	int		len;
 
-	while (--size > -1)
+	len = flg.width > 1 ? flg.width : 1;
+	if (flg.flags & MINUS)
 	{
-		n = 8;
-		while (--n > -1)
-			printf("%c", b & 1 << (n + size * 8) ? '1' : '0');
-		printf(" ");
+		v->to_print[v->len] = '%';
+		ft_memset(v->to_print + v->len + 1, ' ', len - 1);
 	}
-}
-
-int		main(void)
-{
-/*	unsigned long long	x;
-
-	x = 0xFF;*/
-	long long i;
-
-	i = 17;
-	   printf("|%i", printf("%7lli", i));
-	printf("\n");
-	printf("|%i", ft_printf("%7lli", i));
-//	print_bits(o, sizeof(int));
-	return (0);
+	else
+		ft_strrcpy(v->to_print + v->len + len - 1, "%", 1,
+			flg.flags & ZERO ? '0' : ' ');
+	return (len);
 }
