@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:40:21 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 05:35:35 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,48 +17,56 @@
 ** choosing param type
 */
 
-static int	parse_param(char **s, t_vaio *v)
+static int	parse_param(char **s, t_vaio *v, func_ptr p, char *mask)
 {
-	int		len;
 	t_flags	flg;
+	int		len;
+	int		i;
 
 	(*s)++;
+	i = 0;
 	len = 0;
-	flg = parse_flags(s);
-	if (**s == '%')
-		len = parse_percent(v, &flg);
-	else if (**s == 'i' || **s == 'd')
-		len = parse_int(v, &flg);
-	else if (**s == 's')
-		len = parse_string(v, &flg);
-	else if (**s == 'o')
-		len = parse_octal(v, &flg);
-	else if (**s == 'x')
-		len = parse_lower_hex(v, &flg);
-	else if (**s == 'X')
-		len = parse_upper_hex(v, &flg);
-	else if (**s == 'u')
-		len = parse_unsigned(v, &flg);
-	else if (**s == 'c')
-		len = parse_char(v, &flg);
-	else if (**s == 'p')
-		len = parse_pointer(v, &flg);
-	(*s)++;
+	if (**s)
+	{
+		flg = parse_flags(s);
+		while (**s != mask[i])
+			i++;
+		len = (p[i])(v, &flg);
+		(*s)++;
+	}
 	return (len);
+}
+
+void		ft_set_ptrs(func_ptr *p)
+{
+	(*p)[0] = parse_percent;
+	(*p)[1] = parse_char;
+	(*p)[2] = parse_string;
+	(*p)[3] = parse_pointer;
+	(*p)[4] = parse_int;
+	(*p)[5] = parse_int;
+	(*p)[6] = parse_octal;
+	(*p)[7] = parse_unsigned;
+	(*p)[8] = parse_lower_hex;
+	(*p)[9] = parse_upper_hex;
 }
 
 int			ft_printf(char *s, ...)
 {
-	t_vaio	v;
+	t_vaio		v;
+	func_ptr	p;
+	char		*mask;
 
 	v.len = 0;
+	mask = "%cspdiouxX";
 	ft_bzero(&v, sizeof(t_vaio));
-	v.to_print = ft_strnew(BUFFLEN);
+	ft_memory_error(v.to_print = ft_strnew(BUFFLEN));
 	va_start(v.ap, s);
+	ft_set_ptrs(&p);
 	while (*s)
 	{
 		if (*s == '%')
-			v.len += parse_param(&s, &v);
+			v.len += parse_param(&s, &v, p, mask);
 		else
 			v.len += parse_text(&s, &(v.to_print), v.len);
 	}

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 14:55:22 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:43:26 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 05:43:15 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ static int		parse_hex(t_vaio *v, t_flags *flg)
 
 	hex = get_oux_number(v->ap, flg->length);
 	out = x_output_structure(flg, hex);
+	if (out.number == NULL)
+		ft_the_end(v);
 	if (flg->flags & MINUS)
 		x_align_left(flg, out, v->to_print + v->len);
 	else

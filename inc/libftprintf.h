@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:39:11 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 05:40:17 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct		s_vaio
 	int		len;
 }					t_vaio;
 
-int					ft_printf(char *s, ...);
+typedef int (*func_ptr[10])(t_vaio *, t_flags *);
 
 /*
 ** parsers of flags
@@ -87,10 +87,16 @@ int					parse_pointer(t_vaio *v, t_flags *flg);
 */
 
 void				ft_memory_error(void *allocated);
+void				ft_the_end(t_vaio *v);
+
+/*
+** additional functions
+*/
 
 unsigned long long	get_oux_number(va_list ap, char length);
 void				x_align_left(t_flags *flg, t_output out, char *to_print);
 void				x_align_right(t_flags *flg, t_output out, char *to_print);
 char				*ft_xtoa(unsigned long long xparam, char capital);
+int					ft_printf(char *s, ...);
 
 #endif

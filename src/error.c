@@ -6,14 +6,21 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 13:10:21 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/29 13:15:19 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 05:44:54 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libftprintf.h"
 #include <stdlib.h>
 
 void	ft_memory_error(void *allocated)
 {
 	if (allocated == NULL)
 		exit(1);
+}
+
+void	ft_the_end(t_vaio *v)
+{
+	free(v->to_print);
+	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:14:02 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 20:58:27 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ int		main(void)
 
 	n = 42;
 	p = &n;
-	   printf("|%i", printf("%p", p));
+	unsigned char c;
+	c = 1;
+	   printf("|%i", printf("% 2.3f", c));
 	printf("\n");
-	printf("|%i", ft_printf("%p", p));
+	printf("|%i", ft_printf("% 2.3f", c));
 //	print_bits(ui, sizeof(unsigned int));
 	return (0);
 }

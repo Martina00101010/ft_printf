@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 01:01:02 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:31:09 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 05:41:54 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int				parse_unsigned(t_vaio *v, t_flags *flg)
 
 	uparam = get_oux_number(v->ap, flg->length);
 	out = u_output_structure(flg, uparam);
+	if (out.number == NULL)
+		ft_the_end(v);
 	if (flg->flags & MINUS)
 		u_align_left(flg, &out, v->to_print + v->len);
 	else

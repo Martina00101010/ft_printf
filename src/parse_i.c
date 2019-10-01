@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:10:42 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:31:26 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 20:55:34 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static t_output		i_output_structure(t_flags *flg, long long iparam)
 	out.len = !out.preci_zero ? ft_strlen(out.number) : 0;
 	if (flg->width < out.len + (out.sign || out.sp_flg))
 		flg->width = out.len + (out.sign || out.sp_flg);
-	if (flg->width < flg->preci)
+	if (flg->width < flg->preci + (out.sign || out.sp_flg))
 		flg->width = flg->preci + (out.sign || out.sp_flg);
 	return (out);
 }
@@ -126,6 +126,8 @@ int					parse_int(t_vaio *v, t_flags *flg)
 
 	iparam = get_number(v->ap, flg->length);
 	out = i_output_structure(flg, iparam);
+	if (out.number == NULL)
+		ft_the_end(v);
 	if (flg->flags & MINUS)
 		i_align_left(flg, out, v->to_print + v->len);
 	else

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 02:41:39 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:44:17 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 05:41:04 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int		parse_pointer(t_vaio *v, t_flags *flg)
 	flg->length |= LLMOD;
 	pointer = get_oux_number(v->ap, flg->length);
 	out = p_output_structure(flg, pointer);
+	if (out.number == NULL)
+		ft_the_end(v);
 	if (flg->flags & MINUS)
 		x_align_left(flg, out, v->to_print + v->len);
 	else

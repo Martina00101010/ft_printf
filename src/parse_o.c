@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 20:08:46 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:42:16 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 05:42:26 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ int				parse_octal(t_vaio *v, t_flags *flg)
 
 	oparam = get_oux_number(v->ap, flg->length);
 	out = o_output_structure(flg, oparam);
+	if (out.number == NULL)
+		ft_the_end(v);
 	if (flg->flags & MINUS)
 		o_align_left(flg, out, v->to_print + v->len);
 	else
