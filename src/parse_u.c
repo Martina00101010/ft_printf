@@ -6,13 +6,13 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 01:01:02 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 02:04:39 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 03:31:09 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-char	*ft_utoa(unsigned long long uparam)
+char			*ft_utoa(unsigned long long uparam)
 {
 	unsigned long long	tmp;
 	char				*u;
@@ -35,7 +35,7 @@ char	*ft_utoa(unsigned long long uparam)
 	return (u);
 }
 
-static void		align_right(t_flags *flg, t_output *out, char *to_print)
+static void		u_align_right(t_flags *flg, t_output *out, char *to_print)
 {
 	int		p;
 
@@ -50,7 +50,7 @@ static void		align_right(t_flags *flg, t_output *out, char *to_print)
 		ft_strcat(to_print + p, out->number);
 }
 
-static void		align_left(t_flags *flg, t_output *out, char *to_print)
+static void		u_align_left(t_flags *flg, t_output *out, char *to_print)
 {
 	int		p;
 
@@ -63,7 +63,7 @@ static void		align_left(t_flags *flg, t_output *out, char *to_print)
 	ft_memset(to_print + p, ' ', out->num_sp);
 }
 
-static t_output	output_structure(t_flags *flg, unsigned long long uparam)
+static t_output	u_output_structure(t_flags *flg, unsigned long long uparam)
 {
 	t_output	out;
 
@@ -78,16 +78,16 @@ static t_output	output_structure(t_flags *flg, unsigned long long uparam)
 	return (out);
 }
 
-int		parse_unsigned(t_vaio *v, t_flags flg)
+int				parse_unsigned(t_vaio *v, t_flags *flg)
 {
 	unsigned long long	uparam;
 	t_output			out;
 
-	uparam = get_oux_number(v->ap, flg.length);
-	out = output_structure(&flg, uparam);
-	if (flg.flags & MINUS)
-		align_left(&flg, &out, v->to_print + v->len);
+	uparam = get_oux_number(v->ap, flg->length);
+	out = u_output_structure(flg, uparam);
+	if (flg->flags & MINUS)
+		u_align_left(flg, &out, v->to_print + v->len);
 	else
-		align_right(&flg, &out, v->to_print + v->len);
-	return (flg.width);
+		u_align_right(flg, &out, v->to_print + v->len);
+	return (flg->width);
 }

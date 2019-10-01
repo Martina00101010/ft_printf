@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 01:05:46 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 03:40:21 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,23 @@ static int	parse_param(char **s, t_vaio *v)
 	len = 0;
 	flg = parse_flags(s);
 	if (**s == '%')
-		len = parse_percent(v, flg);
+		len = parse_percent(v, &flg);
 	else if (**s == 'i' || **s == 'd')
-		len = parse_int(v, flg);
+		len = parse_int(v, &flg);
 	else if (**s == 's')
-		len = parse_string(v, flg);
+		len = parse_string(v, &flg);
 	else if (**s == 'o')
-		len = parse_octal(v, flg);
+		len = parse_octal(v, &flg);
 	else if (**s == 'x')
-		len = parse_lower_hex(v, flg);
+		len = parse_lower_hex(v, &flg);
 	else if (**s == 'X')
-		len = parse_upper_hex(v, flg);
+		len = parse_upper_hex(v, &flg);
 	else if (**s == 'u')
-		len = parse_unsigned(v, flg);
-	/*	printf("param %i\n", flg.param);
-	printf("width %i\n", flg.width);
-	printf("preci %i\n", flg.preci);
-	printf("#     %i\n", flg.flags & 1);
-	printf("0     %i\n", flg.flags & 1 << 1);
-	printf("sp    %i\n", flg.flags & 1 << 2);
-	printf("-     %i\n", flg.flags & 1 << 3);
-	printf("+     %i\n", flg.flags & 1 << 4);
-	printf("%%     %i\n", flg.flags & 1 << 5);
-	printf("hh    %i\n", flg.length & 1);
-	printf("h     %i\n", flg.length & 1 << 1);
-	printf("ll    %i\n", flg.length & 1 << 2);
-	printf("l     %i\n", flg.length & 1 << 3);*/
+		len = parse_unsigned(v, &flg);
+	else if (**s == 'c')
+		len = parse_char(v, &flg);
+	else if (**s == 'p')
+		len = parse_pointer(v, &flg);
 	(*s)++;
 	return (len);
 }

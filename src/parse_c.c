@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_percent.c                                    :+:      :+:    :+:   */
+/*   parse_c.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/30 17:48:28 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:27:52 by pberge           ###   ########.fr       */
+/*   Created: 2019/10/01 02:19:36 by pberge            #+#    #+#             */
+/*   Updated: 2019/10/01 03:32:32 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		parse_percent(t_vaio *v, t_flags *flg)
+int		parse_char(t_vaio *v, t_flags *flg)
 {
-	char	*tmp;
-	int		len;
+	unsigned char	c;
+	char			*to_print;
 
-	len = flg->width > 1 ? flg->width : 1;
+	to_print = v->to_print + v->len;
+	c = va_arg(v->ap, int);
+	flg->width = (flg->width == 0) ? 1 : flg->width;
 	if (flg->flags & MINUS)
 	{
-		v->to_print[v->len] = '%';
-		ft_memset(v->to_print + v->len + 1, ' ', len - 1);
+		ft_memset(to_print, c, 1);
+		ft_memset(to_print + 1, ' ', flg->width - 1);
 	}
 	else
-		ft_strrcpy(v->to_print + v->len + len - 1, "%", 1,
-			flg->flags & ZERO ? '0' : ' ');
-	return (len);
+	{
+		ft_memset(to_print, ' ', flg->width - 1);
+		ft_memset(to_print + flg->width - 1, c, 1);
+	}
+	return (flg->width);
 }

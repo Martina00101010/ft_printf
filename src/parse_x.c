@@ -6,13 +6,13 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 14:55:22 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 00:13:07 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 03:43:26 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void		align_right(t_flags *flg, t_output out, char *to_print)
+void		x_align_right(t_flags *flg, t_output out, char *to_print)
 {
 	int		p;
 
@@ -30,13 +30,13 @@ static void		align_right(t_flags *flg, t_output out, char *to_print)
 		ft_strcat(to_print + p, out.number);
 }
 
-static void		align_left(t_flags *flg, t_output out, char *to_print)
+void		x_align_left(t_flags *flg, t_output out, char *to_print)
 {
 	int		p;
 
 	p = out.sp_flg;
 	if (out.sp_flg)
-		ft_strcat(to_print, flg->flags & CAPITAL_HEX ? "0X": "0x");
+		ft_strcat(to_print, flg->flags & CAPITAL_HEX ? "0X" : "0x");
 	out.num_sp = flg->width - out.sp_flg - flg->preci - out.len;
 	ft_memset(to_print + p, '0', flg->preci);
 	p += flg->preci;
@@ -45,7 +45,7 @@ static void		align_left(t_flags *flg, t_output out, char *to_print)
 	ft_memset(to_print + p, ' ', out.num_sp);
 }
 
-static char		*ft_xtoa(unsigned long long xparam, char capital)
+char		*ft_xtoa(unsigned long long xparam, char capital)
 {
 	unsigned long long	tmp;
 	char				*hex;
@@ -73,7 +73,7 @@ static char		*ft_xtoa(unsigned long long xparam, char capital)
 	return (hex);
 }
 
-static t_output	output_structure(t_flags *flg, unsigned long long xparam)
+static t_output	x_output_structure(t_flags *flg, unsigned long long xparam)
 {
 	t_output	out;
 
@@ -89,27 +89,27 @@ static t_output	output_structure(t_flags *flg, unsigned long long xparam)
 	return (out);
 }
 
-static int		parse_hex(t_vaio *v, t_flags flg)
+static int		parse_hex(t_vaio *v, t_flags *flg)
 {
 	unsigned long long	hex;
-	t_output	out;
+	t_output			out;
 
-	hex = get_oux_number(v->ap, flg.length);
-	out	= output_structure(&flg, hex);
-	if (flg.flags & MINUS)
-		align_left(&flg, out, v->to_print + v->len);
+	hex = get_oux_number(v->ap, flg->length);
+	out = x_output_structure(flg, hex);
+	if (flg->flags & MINUS)
+		x_align_left(flg, out, v->to_print + v->len);
 	else
-		align_right(&flg, out, v->to_print + v->len);
-	return (flg.width);
+		x_align_right(flg, out, v->to_print + v->len);
+	return (flg->width);
 }
 
-int				parse_upper_hex(t_vaio *v, t_flags flg)
+int				parse_upper_hex(t_vaio *v, t_flags *flg)
 {
-	flg.flags |= CAPITAL_HEX;
+	flg->flags |= CAPITAL_HEX;
 	return (parse_hex(v, flg));
 }
 
-int				parse_lower_hex(t_vaio *v, t_flags flg)
+int				parse_lower_hex(t_vaio *v, t_flags *flg)
 {
 	return (parse_hex(v, flg));
 }

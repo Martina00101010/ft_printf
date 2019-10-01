@@ -6,13 +6,13 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 20:08:46 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 22:40:43 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 03:42:16 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void		align_right(t_flags *flg, t_output out, char *to_print)
+static void		o_align_right(t_flags *flg, t_output out, char *to_print)
 {
 	if (flg->flags & PRECISION)
 		flg->preci = flg->preci > out.len + out.sp_flg ? \
@@ -28,7 +28,7 @@ static void		align_right(t_flags *flg, t_output out, char *to_print)
 		ft_strcat(to_print, out.number);
 }
 
-static void		align_left(t_flags *flg, t_output out, char *to_print)
+static void		o_align_left(t_flags *flg, t_output out, char *to_print)
 {
 	flg->preci = flg->preci > out.len + out.sp_flg ?
 		flg->preci - out.len : out.sp_flg;
@@ -39,7 +39,7 @@ static void		align_left(t_flags *flg, t_output out, char *to_print)
 	ft_memset(to_print + flg->preci + out.len, ' ', out.num_sp);
 }
 
-char		*ft_ulltoa(unsigned long long n)
+char			*ft_ulltoa(unsigned long long n)
 {
 	unsigned long long	tmp;
 	int					len;
@@ -62,7 +62,7 @@ char		*ft_ulltoa(unsigned long long n)
 	return (ullparam);
 }
 
-static t_output		output_structure(t_flags *flg, unsigned long long oparam)
+static t_output	o_output_structure(t_flags *flg, unsigned long long oparam)
 {
 	t_output	out;
 
@@ -84,7 +84,7 @@ static t_output		output_structure(t_flags *flg, unsigned long long oparam)
 	return (out);
 }
 
-unsigned long long		get_oux_number(va_list ap, char length)
+unsigned long long	get_oux_number(va_list ap, char length)
 {
 	unsigned long long	oparam;
 	unsigned char		ucp;
@@ -118,16 +118,16 @@ unsigned long long		get_oux_number(va_list ap, char length)
 ** return width of written string -> flg.width
 */
 
-int		parse_octal(t_vaio *v, t_flags flg)
+int				parse_octal(t_vaio *v, t_flags *flg)
 {
 	unsigned long long	oparam;
 	t_output			out;
 
-	oparam = get_oux_number(v->ap, flg.length);
-	out = output_structure(&flg, oparam);
-	if (flg.flags & MINUS)
-		align_left(&flg, out, v->to_print + v->len);
+	oparam = get_oux_number(v->ap, flg->length);
+	out = o_output_structure(flg, oparam);
+	if (flg->flags & MINUS)
+		o_align_left(flg, out, v->to_print + v->len);
 	else
-		align_right(&flg, out, v->to_print + v->len);
-	return (flg.width);
+		o_align_right(flg, out, v->to_print + v->len);
+	return (flg->width);
 }

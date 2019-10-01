@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/10/01 01:03:37 by pberge           ###   ########.fr        #
+#    Updated: 2019/10/01 02:50:56 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRCS = ft_printf.c	\
 	   parse_o.c	\
 	   parse_x.c	\
 	   parse_u.c	\
+	   parse_c.c	\
+	   parse_p.c	\
 	   output.c		\
 	   error.c
 LSRC = ft_memset.c	ft_memalloc.c	ft_tolower.c	\

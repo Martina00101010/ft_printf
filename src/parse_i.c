@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:10:42 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 17:22:43 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 03:31:26 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char			*ft_itoa_unsigned(long long n)
 	return (integer);
 }
 
-static void			align_left(t_flags *flg, t_output out, char *to_print)
+static void			i_align_left(t_flags *flg, t_output out, char *to_print)
 {
 	int		p;
 
@@ -55,7 +55,7 @@ static void			align_left(t_flags *flg, t_output out, char *to_print)
 	ft_memset(to_print + p, ' ', out.num_sp);
 }
 
-static void			align_right(t_flags *flg, t_output out, char *to_print)
+static void			i_align_right(t_flags *flg, t_output out, char *to_print)
 {
 	int		p;
 
@@ -100,7 +100,7 @@ static long long	get_number(va_list ap, char length)
 	return (iparam);
 }
 
-static t_output		output_structure(t_flags *flg, long long iparam)
+static t_output		i_output_structure(t_flags *flg, long long iparam)
 {
 	t_output	out;
 
@@ -119,16 +119,16 @@ static t_output		output_structure(t_flags *flg, long long iparam)
 	return (out);
 }
 
-int					parse_int(t_vaio *v, t_flags flg)
+int					parse_int(t_vaio *v, t_flags *flg)
 {
 	long long	iparam;
 	t_output	out;
 
-	iparam = get_number(v->ap, flg.length);
-	out = output_structure(&flg, iparam);
-	if (flg.flags & MINUS)
-		align_left(&flg, out, v->to_print + v->len);
+	iparam = get_number(v->ap, flg->length);
+	out = i_output_structure(flg, iparam);
+	if (flg->flags & MINUS)
+		i_align_left(flg, out, v->to_print + v->len);
 	else
-		align_right(&flg, out, v->to_print + v->len);
-	return (flg.width);
+		i_align_right(flg, out, v->to_print + v->len);
+	return (flg->width);
 }

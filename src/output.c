@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:20:04 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/29 13:10:12 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/01 03:40:08 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 ** refresh buffer if there is no space left
 */
- 
+
 void	add_to_output(t_vaio *v, char *to_print)
 {
 	ft_putnbr(BUFFLEN - v->len - (int)ft_strlen(to_print));
