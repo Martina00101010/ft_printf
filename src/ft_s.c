@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_s.c                                          :+:      :+:    :+:   */
+/*   ft_s.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:35:59 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:41:10 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 19:15:55 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** taking string from va list ; applying flags to string
 */
 
-int		parse_string(t_vaio *v, t_flags *flg)
+int		ft_s(t_vaio *v, t_flags *flg)
 {
 	char	*sparam;
 	int		slen;
@@ -30,6 +30,7 @@ int		parse_string(t_vaio *v, t_flags *flg)
 	if ((flg->flags & PRECISION))
 		slen = flg->preci < slen ? flg->preci : slen;
 	cpylen = flg->width > slen ? flg->width : slen;
+	ft_refresh_buffer(v, cpylen);
 	if (flg->flags & MINUS)
 	{
 		ft_strncat(v->to_print, sparam, slen);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_u.c                                          :+:      :+:    :+:   */
+/*   ft_u.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 01:01:02 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 05:41:54 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 19:29:26 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char			*ft_utoa(unsigned long long uparam)
 		tmp /= 10;
 	}
 	len = (uparam == 0) ? 1 : len;
-	ft_memory_error((u = ft_strnew(len + 1)));
+	if (!(u = ft_strnew(len + 1)))
+		return (NULL);
 	while (--len > -1)
 	{
 		u[len] = uparam % 10 + '0';
@@ -78,7 +79,7 @@ static t_output	u_output_structure(t_flags *flg, unsigned long long uparam)
 	return (out);
 }
 
-int				parse_unsigned(t_vaio *v, t_flags *flg)
+int				ft_u(t_vaio *v, t_flags *flg)
 {
 	unsigned long long	uparam;
 	t_output			out;
@@ -87,6 +88,7 @@ int				parse_unsigned(t_vaio *v, t_flags *flg)
 	out = u_output_structure(flg, uparam);
 	if (out.number == NULL)
 		ft_the_end(v);
+	ft_refresh_buffer(v, flg->width);
 	if (flg->flags & MINUS)
 		u_align_left(flg, &out, v->to_print + v->len);
 	else

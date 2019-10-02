@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_text.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/29 13:10:21 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 05:44:54 by pberge           ###   ########.fr       */
+/*   Created: 2019/09/30 17:47:54 by pberge            #+#    #+#             */
+/*   Updated: 2019/10/02 19:23:20 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdlib.h>
 
-void	ft_memory_error(void *allocated)
-{
-	if (allocated == NULL)
-		exit(1);
-}
+/*
+** detaching text from string-in-parse ; appending detached to print-string
+*/
 
-void	ft_the_end(t_vaio *v)
+int		ft_text(char **s, t_vaio *v)
 {
-	free(v->to_print);
-	exit(1);
+	int		slen;
+	char	*tmp;
+
+	slen = 0;
+	while ((*s)[slen] != '%' && (*s)[slen] != '\0')
+		slen++;
+	ft_refresh_buffer(v, slen);
+	ft_strncat(v->to_print + v->len, *s, slen);
+	*s += slen;
+	return (slen);
 }

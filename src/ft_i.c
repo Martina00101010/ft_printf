@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_i.c                                          :+:      :+:    :+:   */
+/*   ft_i.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:10:42 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 20:55:34 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 19:13:04 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ static t_output		i_output_structure(t_flags *flg, long long iparam)
 	return (out);
 }
 
-int					parse_int(t_vaio *v, t_flags *flg)
+int					ft_i(t_vaio *v, t_flags *flg)
 {
 	long long	iparam;
 	t_output	out;
@@ -128,6 +128,7 @@ int					parse_int(t_vaio *v, t_flags *flg)
 	out = i_output_structure(flg, iparam);
 	if (out.number == NULL)
 		ft_the_end(v);
+	ft_refresh_buffer(v, flg->width);
 	if (flg->flags & MINUS)
 		i_align_left(flg, out, v->to_print + v->len);
 	else

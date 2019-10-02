@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_o.c                                          :+:      :+:    :+:   */
+/*   ft_o.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 20:08:46 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 05:42:26 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 19:27:51 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ char			*ft_ulltoa(unsigned long long n)
 		tmp /= 8;
 	}
 	len = (n == 0) ? 1 : len;
-	ft_memory_error(ullparam = ft_strnew(len + 1));
+	if (!(ullparam = ft_strnew(len + 1)))
+			return (NULL);
 	while (--len >= 0)
 	{
 		ullparam[len] = n % 8 + '0';
@@ -118,7 +119,7 @@ unsigned long long	get_oux_number(va_list ap, char length)
 ** return width of written string -> flg.width
 */
 
-int				parse_octal(t_vaio *v, t_flags *flg)
+int				ft_o(t_vaio *v, t_flags *flg)
 {
 	unsigned long long	oparam;
 	t_output			out;
@@ -127,6 +128,7 @@ int				parse_octal(t_vaio *v, t_flags *flg)
 	out = o_output_structure(flg, oparam);
 	if (out.number == NULL)
 		ft_the_end(v);
+	ft_refresh_buffer(v, flg->width);
 	if (flg->flags & MINUS)
 		o_align_left(flg, out, v->to_print + v->len);
 	else

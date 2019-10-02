@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_text.c                                       :+:      :+:    :+:   */
+/*   ft_percent.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/30 17:47:54 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 17:51:54 by pberge           ###   ########.fr       */
+/*   Created: 2019/09/30 17:48:28 by pberge            #+#    #+#             */
+/*   Updated: 2019/10/02 19:15:29 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-/*
-** detaching text from string-in-parse ; appending detached to print-string
-*/
-
-int		parse_text(char **s, char **to_print, int vlen)
+int		ft_percent(t_vaio *v, t_flags *flg)
 {
-	int		slen;
 	char	*tmp;
 
-	slen = 0;
-	while ((*s)[slen] != '%' && (*s)[slen] != '\0')
-		slen++;
-	ft_strncat(*to_print + vlen, *s, slen);
-	*s += slen;
-	return (slen);
+	flg->width = flg->width > 1 ? flg->width : 1;
+	ft_refresh_buffer(v, flg->width);
+	if (flg->flags & MINUS)
+	{
+		v->to_print[v->len] = '%';
+		ft_memset(v->to_print + v->len + 1, ' ', flg->width - 1);
+	}
+	else
+		ft_strrcpy(v->to_print + v->len + flg->width - 1, "%", 1,
+			flg->flags & ZERO ? '0' : ' ');
+	return (flg->width);
 }

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 17:43:04 by pberge            #+#    #+#             */
-/*   Updated: 2019/09/30 17:56:44 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 18:46:05 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** parsing length modifiers
 */
 
-void	parse_length(char **s, t_flags *flg)
+static void	hh_h_ll_l(char **s, t_flags *flg)
 {
 	int	len;
 
@@ -36,10 +36,10 @@ void	parse_length(char **s, t_flags *flg)
 }
 
 /*
-** switch on flags from parse-string
+** switch on flags from format string
 */
 
-char	switch_flag(char **s)
+static char	switch_flag(char **s)
 {
 	char	flags;
 
@@ -92,6 +92,6 @@ t_flags	parse_flags(char **s)
 		while (**s >= '0' && **s <= '9')
 			(*s)++;
 	}
-	parse_length(s, &flg);
+	hh_h_ll_l(s, &flg);
 	return (flg);
 }

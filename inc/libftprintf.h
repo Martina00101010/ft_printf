@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 05:40:17 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 19:36:04 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,32 +55,31 @@ typedef struct		s_vaio
 	va_list	ap;
 	char	*to_print;
 	int		len;
+	int		ret_val;
 }					t_vaio;
 
-typedef int (*func_ptr[10])(t_vaio *, t_flags *);
+typedef int (*convert[10])(t_vaio *, t_flags *);
 
 /*
 ** parsers of flags
 */
 
-void				parse_length(char **s, t_flags *flg);
-char				switch_flag(char **s);
 t_flags				parse_flags(char **s);
 
 /*
 ** parsers of conversion specifiers
 */
 
-int					parse_text(char **s, char **to_print, int vlen);
-int					parse_string(t_vaio *v, t_flags *flg);
-int					parse_percent(t_vaio *v, t_flags *flg);
-int					parse_int(t_vaio *v, t_flags *flg);
-int					parse_octal(t_vaio *v, t_flags *flg);
-int					parse_upper_hex(t_vaio *v, t_flags *flg);
-int					parse_lower_hex(t_vaio *v, t_flags *flg);
-int					parse_unsigned(t_vaio *v, t_flags *flg);
-int					parse_char(t_vaio *v, t_flags *flg);
-int					parse_pointer(t_vaio *v, t_flags *flg);
+int					ft_text(char **s, t_vaio *v);
+int					ft_percent(t_vaio *v, t_flags *flg);
+int					ft_c(t_vaio *v, t_flags *flg);
+int					ft_s(t_vaio *v, t_flags *flg);
+int					ft_p(t_vaio *v, t_flags *flg);
+int					ft_i(t_vaio *v, t_flags *flg);
+int					ft_o(t_vaio *v, t_flags *flg);
+int					ft_u(t_vaio *v, t_flags *flg);
+int					ft_x(t_vaio *v, t_flags *flg);
+int					ft_X(t_vaio *v, t_flags *flg);
 
 /*
 ** error handlers
@@ -98,5 +97,6 @@ void				x_align_left(t_flags *flg, t_output out, char *to_print);
 void				x_align_right(t_flags *flg, t_output out, char *to_print);
 char				*ft_xtoa(unsigned long long xparam, char capital);
 int					ft_printf(char *s, ...);
+void				ft_refresh_buffer(t_vaio *v, int output_len);
 
 #endif

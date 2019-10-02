@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/10/01 02:50:56 by pberge           ###   ########.fr        #
+#    Updated: 2019/10/02 19:30:40 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,18 @@ NAME = libftprintf.a
 #WFLAGS = -Wall -Wextra -Werror   # switch on!
 SRCF = src
 SRCS = ft_printf.c	\
-	   parse_flags.c	\
-	   parse_percent.c	\
-	   parse_text.c		\
-	   parse_s.c	\
-	   parse_i.c	\
-	   parse_o.c	\
-	   parse_x.c	\
-	   parse_u.c	\
-	   parse_c.c	\
-	   parse_p.c	\
-	   output.c		\
-	   error.c
+	   parse_flags.c\
+	   ft_percent.c	\
+	   ft_text.c	\
+	   ft_s.c	\
+	   ft_i.c	\
+	   ft_o.c	\
+	   ft_xX.c	\
+	   ft_u.c	\
+	   ft_c.c	\
+	   ft_p.c	\
+	   ft_refresh_buffer.c		\
+	   ft_error.c
 LSRC = ft_memset.c	ft_memalloc.c	ft_tolower.c	\
 		  ft_toupper.c	ft_isprint.c	ft_isascii.c	\
 		  ft_isalpha.c	ft_isdigit.c	ft_isalnum.c	\

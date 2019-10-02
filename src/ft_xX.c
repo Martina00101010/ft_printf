@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_x.c                                          :+:      :+:    :+:   */
+/*   ft_xX.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 14:55:22 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 05:43:15 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 19:33:43 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ char		*ft_xtoa(unsigned long long xparam, char capital)
 		tmp /= 16;
 	}
 	len = (xparam == 0x0) ? 1 : len;
-	ft_memory_error((hex = ft_strnew(len + 1)));
+	if (!(hex = ft_strnew(len + 1)))
+		return (NULL);
 	while (--len > -1)
 	{
 		tmp = xparam % 16;
@@ -98,6 +99,7 @@ static int		parse_hex(t_vaio *v, t_flags *flg)
 	out = x_output_structure(flg, hex);
 	if (out.number == NULL)
 		ft_the_end(v);
+	ft_refresh_buffer(v, flg->width);
 	if (flg->flags & MINUS)
 		x_align_left(flg, out, v->to_print + v->len);
 	else
@@ -105,13 +107,13 @@ static int		parse_hex(t_vaio *v, t_flags *flg)
 	return (flg->width);
 }
 
-int				parse_upper_hex(t_vaio *v, t_flags *flg)
+int				ft_X(t_vaio *v, t_flags *flg)
 {
 	flg->flags |= CAPITAL_HEX;
 	return (parse_hex(v, flg));
 }
 
-int				parse_lower_hex(t_vaio *v, t_flags *flg)
+int				ft_x(t_vaio *v, t_flags *flg)
 {
 	return (parse_hex(v, flg));
 }

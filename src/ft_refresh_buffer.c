@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_percent.c                                    :+:      :+:    :+:   */
+/*   ft_refresh_buffer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/30 17:48:28 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 03:27:52 by pberge           ###   ########.fr       */
+/*   Created: 2019/09/20 16:20:04 by pberge            #+#    #+#             */
+/*   Updated: 2019/10/02 19:10:08 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <unistd.h>
 
-int		parse_percent(t_vaio *v, t_flags *flg)
+/*
+** refresh buffer if there is no space left
+*/
+
+void	ft_refresh_buffer(t_vaio *v, int output_len)
 {
-	char	*tmp;
-	int		len;
-
-	len = flg->width > 1 ? flg->width : 1;
-	if (flg->flags & MINUS)
+//	printf("%i!\n", BUFFLEN - v->len - output_len);
+	if (BUFFLEN - v->len - output_len < 0)
 	{
-		v->to_print[v->len] = '%';
-		ft_memset(v->to_print + v->len + 1, ' ', len - 1);
+		write(1, v->to_print, v->len);
+		ft_bzero(v->to_print, BUFFLEN + 1);
+		v->ret_val += v->len;
+		v->len = 0;
 	}
-	else
-		ft_strrcpy(v->to_print + v->len + len - 1, "%", 1,
-			flg->flags & ZERO ? '0' : ' ');
-	return (len);
+//	printf("%i!\n", BUFFLEN - v->len - output_len);
 }

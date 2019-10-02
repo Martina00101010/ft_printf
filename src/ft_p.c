@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_p.c                                          :+:      :+:    :+:   */
+/*   ft_p.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 02:41:39 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/01 05:41:04 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 19:14:07 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_output	p_output_structure(t_flags *flg, unsigned long long xparam)
 	return (out);
 }
 
-int		parse_pointer(t_vaio *v, t_flags *flg)
+int		ft_p(t_vaio *v, t_flags *flg)
 {
 	unsigned long long	pointer;
 	t_output			out;
@@ -39,6 +39,7 @@ int		parse_pointer(t_vaio *v, t_flags *flg)
 	out = p_output_structure(flg, pointer);
 	if (out.number == NULL)
 		ft_the_end(v);
+	ft_refresh_buffer(v, flg->width);
 	if (flg->flags & MINUS)
 		x_align_left(flg, out, v->to_print + v->len);
 	else
