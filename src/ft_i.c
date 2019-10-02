@@ -6,37 +6,12 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:10:42 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 19:13:04 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 20:54:52 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include <stdlib.h>
-
-static char			*ft_itoa_unsigned(long long n)
-{
-	char		*integer;
-	int			len;
-	long long	tmp;
-
-	len = 1;
-	if (n == -9223372036854775808U)
-		return (ft_strdup("9223372036854775808"));
-	if (n < 0)
-		n *= -1;
-	tmp = n;
-	while ((tmp = tmp / 10))
-		len++;
-	if (!(integer = (char *)malloc(len + 1)))
-		return (NULL);
-	integer[len] = '\0';
-	while (len--)
-	{
-		integer[len] = n % 10 + '0';
-		n /= 10;
-	}
-	return (integer);
-}
 
 static void			i_align_left(t_flags *flg, t_output out, char *to_print)
 {
@@ -133,5 +108,6 @@ int					ft_i(t_vaio *v, t_flags *flg)
 		i_align_left(flg, out, v->to_print + v->len);
 	else
 		i_align_right(flg, out, v->to_print + v->len);
+	free(out.number);
 	return (flg->width);
 }

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 19:36:04 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 20:54:38 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct		s_vaio
 	int		ret_val;
 }					t_vaio;
 
-typedef int (*convert[10])(t_vaio *, t_flags *);
+typedef int			(*t_convert[10])(t_vaio *, t_flags *);
 
 /*
 ** parsers of flags
@@ -79,7 +79,8 @@ int					ft_i(t_vaio *v, t_flags *flg);
 int					ft_o(t_vaio *v, t_flags *flg);
 int					ft_u(t_vaio *v, t_flags *flg);
 int					ft_x(t_vaio *v, t_flags *flg);
-int					ft_X(t_vaio *v, t_flags *flg);
+int					ft_x_low(t_vaio *v, t_flags *flg);
+int					ft_x_up(t_vaio *v, t_flags *flg);
 
 /*
 ** error handlers
@@ -92,6 +93,8 @@ void				ft_the_end(t_vaio *v);
 ** additional functions
 */
 
+char				*ft_itoa_unsigned(long long n);
+char				*ft_ulltoa(unsigned long long n);
 unsigned long long	get_oux_number(va_list ap, char length);
 void				x_align_left(t_flags *flg, t_output out, char *to_print);
 void				x_align_right(t_flags *flg, t_output out, char *to_print);

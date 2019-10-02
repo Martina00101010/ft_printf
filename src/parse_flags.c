@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 17:43:04 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 18:46:05 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 20:35:27 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char	switch_flag(char **s)
 **  ft_atoi <- length
 */
 
-t_flags	parse_flags(char **s)
+t_flags		parse_flags(char **s)
 {
 	char	*ptr;
 	t_flags	flg;

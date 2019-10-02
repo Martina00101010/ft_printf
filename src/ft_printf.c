@@ -6,18 +6,19 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 19:21:33 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 20:46:09 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libftprintf.h"
+#include <stdlib.h>
 
 /*
 ** choosing param type
 */
 
-static int	ft_flags(char **s, t_vaio *v, convert cvt)
+static int	ft_flags(char **s, t_vaio *v, t_convert cvt)
 {
 	t_flags	flg;
 	int		i;
@@ -38,7 +39,7 @@ static int	ft_flags(char **s, t_vaio *v, convert cvt)
 	return (i);
 }
 
-void		ft_convert(convert *cvt)
+void		ft_convert(t_convert *cvt)
 {
 	(*cvt)[0] = ft_percent;
 	(*cvt)[1] = ft_c;
@@ -48,14 +49,14 @@ void		ft_convert(convert *cvt)
 	(*cvt)[5] = ft_i;
 	(*cvt)[6] = ft_o;
 	(*cvt)[7] = ft_u;
-	(*cvt)[8] = ft_x;
-	(*cvt)[9] = ft_X;
+	(*cvt)[8] = ft_x_low;
+	(*cvt)[9] = ft_x_up;
 }
 
 int			ft_printf(char *s, ...)
 {
-	t_vaio	v;
-	convert	cvt;
+	t_vaio		v;
+	t_convert	cvt;
 
 	ft_bzero(&v, sizeof(t_vaio));
 	ft_memory_error(v.to_print = ft_strnew(BUFFLEN));
@@ -71,5 +72,6 @@ int			ft_printf(char *s, ...)
 	va_end(v.ap);
 	write(1, v.to_print, v.len);
 	v.ret_val += v.len;
+	free(v.to_print);
 	return (v.ret_val);
 }

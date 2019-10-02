@@ -6,13 +6,14 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 20:08:46 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 19:27:51 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 20:55:56 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdlib.h>
 
-static void		o_align_right(t_flags *flg, t_output out, char *to_print)
+static void			o_align_right(t_flags *flg, t_output out, char *to_print)
 {
 	if (flg->flags & PRECISION)
 		flg->preci = flg->preci > out.len + out.sp_flg ? \
@@ -28,7 +29,7 @@ static void		o_align_right(t_flags *flg, t_output out, char *to_print)
 		ft_strcat(to_print, out.number);
 }
 
-static void		o_align_left(t_flags *flg, t_output out, char *to_print)
+static void			o_align_left(t_flags *flg, t_output out, char *to_print)
 {
 	flg->preci = flg->preci > out.len + out.sp_flg ?
 		flg->preci - out.len : out.sp_flg;
@@ -39,31 +40,7 @@ static void		o_align_left(t_flags *flg, t_output out, char *to_print)
 	ft_memset(to_print + flg->preci + out.len, ' ', out.num_sp);
 }
 
-char			*ft_ulltoa(unsigned long long n)
-{
-	unsigned long long	tmp;
-	int					len;
-	char				*ullparam;
-
-	len = 0;
-	tmp = n;
-	while (tmp > 0)
-	{
-		len++;
-		tmp /= 8;
-	}
-	len = (n == 0) ? 1 : len;
-	if (!(ullparam = ft_strnew(len + 1)))
-			return (NULL);
-	while (--len >= 0)
-	{
-		ullparam[len] = n % 8 + '0';
-		n /= 8;
-	}
-	return (ullparam);
-}
-
-static t_output	o_output_structure(t_flags *flg, unsigned long long oparam)
+static t_output		o_output_structure(t_flags *flg, unsigned long long oparam)
 {
 	t_output	out;
 
@@ -119,7 +96,7 @@ unsigned long long	get_oux_number(va_list ap, char length)
 ** return width of written string -> flg.width
 */
 
-int				ft_o(t_vaio *v, t_flags *flg)
+int					ft_o(t_vaio *v, t_flags *flg)
 {
 	unsigned long long	oparam;
 	t_output			out;
@@ -133,5 +110,6 @@ int				ft_o(t_vaio *v, t_flags *flg)
 		o_align_left(flg, out, v->to_print + v->len);
 	else
 		o_align_right(flg, out, v->to_print + v->len);
+	free(out.number);
 	return (flg->width);
 }

@@ -6,11 +6,12 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 02:41:39 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 19:14:07 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 20:30:41 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdlib.h>
 
 static t_output	p_output_structure(t_flags *flg, unsigned long long xparam)
 {
@@ -28,7 +29,7 @@ static t_output	p_output_structure(t_flags *flg, unsigned long long xparam)
 	return (out);
 }
 
-int		ft_p(t_vaio *v, t_flags *flg)
+int				ft_p(t_vaio *v, t_flags *flg)
 {
 	unsigned long long	pointer;
 	t_output			out;
@@ -44,5 +45,6 @@ int		ft_p(t_vaio *v, t_flags *flg)
 		x_align_left(flg, out, v->to_print + v->len);
 	else
 		x_align_right(flg, out, v->to_print + v->len);
+	free(out.number);
 	return (flg->width);
 }

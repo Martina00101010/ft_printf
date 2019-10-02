@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_refresh_buffer.c                                :+:      :+:    :+:   */
+/*   ft_xlow_xup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/20 16:20:04 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 20:34:21 by pberge           ###   ########.fr       */
+/*   Created: 2019/10/02 20:44:20 by pberge            #+#    #+#             */
+/*   Updated: 2019/10/02 20:46:30 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <unistd.h>
 
-/*
-** refresh buffer if there is no space left
-*/
-
-void	ft_refresh_buffer(t_vaio *v, int output_len)
+int				ft_x_up(t_vaio *v, t_flags *flg)
 {
-	if (BUFFLEN - v->len - output_len < 0)
-	{
-		write(1, v->to_print, v->len);
-		ft_bzero(v->to_print, BUFFLEN + 1);
-		v->ret_val += v->len;
-		v->len = 0;
-	}
+	flg->flags |= CAPITAL_HEX;
+	return (ft_x(v, flg));
+}
+
+int				ft_x_low(t_vaio *v, t_flags *flg)
+{
+	return (ft_x(v, flg));
 }

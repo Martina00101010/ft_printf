@@ -6,11 +6,12 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 01:01:02 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 19:29:26 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/02 20:21:06 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdlib.h>
 
 char			*ft_utoa(unsigned long long uparam)
 {
@@ -93,5 +94,6 @@ int				ft_u(t_vaio *v, t_flags *flg)
 		u_align_left(flg, &out, v->to_print + v->len);
 	else
 		u_align_right(flg, &out, v->to_print + v->len);
+	free(out.number);
 	return (flg->width);
 }

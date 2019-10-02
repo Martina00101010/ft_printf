@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/10/02 19:30:40 by pberge           ###   ########.fr        #
+#    Updated: 2019/10/02 20:59:35 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,13 @@ SRCS = ft_printf.c	\
 	   ft_s.c	\
 	   ft_i.c	\
 	   ft_o.c	\
-	   ft_xX.c	\
+	   ft_x.c	\
 	   ft_u.c	\
 	   ft_c.c	\
 	   ft_p.c	\
-	   ft_refresh_buffer.c		\
+	   ft_ntoa.c\
+	   ft_xlow_xup.c	\
+	   ft_refresh_buffer.c\
 	   ft_error.c
 LSRC = ft_memset.c	ft_memalloc.c	ft_tolower.c	\
 		  ft_toupper.c	ft_isprint.c	ft_isascii.c	\
