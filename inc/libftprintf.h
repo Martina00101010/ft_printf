@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 20:54:38 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/03 23:56:00 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define HMOD 1 << 1
 # define LLMOD 1 << 2
 # define LMOD 1 << 3
+# define BIGL 1 << 4
 
 typedef struct		s_output
 {
@@ -58,7 +59,7 @@ typedef struct		s_vaio
 	int		ret_val;
 }					t_vaio;
 
-typedef int			(*t_convert[10])(t_vaio *, t_flags *);
+typedef int			(*t_convert[11])(t_vaio *, t_flags *);
 
 /*
 ** parsers of flags
@@ -81,6 +82,7 @@ int					ft_u(t_vaio *v, t_flags *flg);
 int					ft_x(t_vaio *v, t_flags *flg);
 int					ft_x_low(t_vaio *v, t_flags *flg);
 int					ft_x_up(t_vaio *v, t_flags *flg);
+int					ft_f(t_vaio *v, t_flags *flg);
 
 /*
 ** error handlers

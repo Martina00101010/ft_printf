@@ -6,7 +6,7 @@
 #    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/10/02 20:59:35 by pberge           ###   ########.fr        #
+#    Updated: 2019/10/03 23:58:09 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ SRCS = ft_printf.c	\
 	   ft_u.c	\
 	   ft_c.c	\
 	   ft_p.c	\
+	   ft_f.c	\
 	   ft_ntoa.c\
+	   ft_scratch.c	\
 	   ft_xlow_xup.c	\
 	   ft_refresh_buffer.c\
 	   ft_error.c

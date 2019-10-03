@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 17:43:04 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 20:35:27 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/03 02:38:49 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static void	hh_h_ll_l(char **s, t_flags *flg)
 		flg->length |= LLMOD;
 	else if (**s == 'l')
 		flg->length |= LMOD;
+	else if (**s == 'L')
+		flg->length |= BIGL;
 	if (flg->length & HHMOD || flg->length & LLMOD)
 		(*s) += 2;
-	else if (flg->length & HMOD || flg->length & LMOD)
+	else if (flg->length & HMOD || flg->length & LMOD || flg->length & BIGL)
 		(*s)++;
 }
 

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 20:46:09 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/03 01:39:58 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_flags(char **s, t_vaio *v, t_convert cvt)
 
 	(*s)++;
 	i = 0;
-	mask = "%cspdiouxX";
+	mask = "%cspdiouxXf";
 	if (!**s)
 		return (0);
 	flg = parse_flags(s);
@@ -51,6 +51,7 @@ void		ft_convert(t_convert *cvt)
 	(*cvt)[7] = ft_u;
 	(*cvt)[8] = ft_x_low;
 	(*cvt)[9] = ft_x_up;
+	(*cvt)[10] = ft_f;
 }
 
 int			ft_printf(char *s, ...)
@@ -70,6 +71,7 @@ int			ft_printf(char *s, ...)
 			v.len += ft_text(&s, &v);
 	}
 	va_end(v.ap);
+//	write(1, "\033[1;31m", 7);
 	write(1, v.to_print, v.len);
 	v.ret_val += v.len;
 	free(v.to_print);

@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:10:42 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/02 20:54:52 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/03 23:07:49 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static long long	get_number(va_list ap, char length)
 	else
 	{
 		ip = va_arg(ap, int);
-		iparam = ip;
+		iparam = (long long)ip;
 	}
 	return (iparam);
 }
