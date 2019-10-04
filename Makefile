@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pberge <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: koparker <koparker@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/10/03 23:58:09 by pberge           ###   ########.fr        #
+#    Updated: 2019/10/04 16:40:06 by koparker         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,8 +83,11 @@ $(OBJF):
 $(LIBNAME):
 	@make -C libft
 
+e:
+	gcc -g compile/main.c $(SRC) -I./libft -I./inc -o test
+
 c:
-	@gcc compile/main.c -I./libft -I./inc -L. -lftprintf -o test
+	@gcc -g compile/main.c -I./libft -I./inc -L. -lftprintf -o test
 
 clean:
 	@make clean -C $(LIBF)

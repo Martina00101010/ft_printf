@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: koparker <koparker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/03 23:56:00 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/04 16:39:39 by koparker         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,8 @@ void				x_align_right(t_flags *flg, t_output out, char *to_print);
 char				*ft_xtoa(unsigned long long xparam, char capital);
 int					ft_printf(char *s, ...);
 void				ft_refresh_buffer(t_vaio *v, int output_len);
+
+// test
+char				*floats(char *str, int preci);
 
 #endif
