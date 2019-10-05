@@ -110,7 +110,7 @@ static void	ft_width(char **s, va_list ap, t_flags *flg)
 **	get flags:
 **		# 0 space - +
 **		width, also by wildcard (*)
-**		precision, alse by wildcard (*)
+**		precision, also by wildcard (*)
 **		hh h ll l L
 */
 
