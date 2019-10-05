@@ -28,18 +28,8 @@ static char	*ft_fract(long double fract, int preci)
 	while (++len < preci + 1)
 	{
 		fract *= 10;
-		if (preci % 2 != 0)
-		{
-			if (preci > -1 && preci <= 9)
-				f[len] = (long long)fract % 10 + '0';
-			else
-			{
-				if (len != preci)
-					f[len] = (long long)fract % 10 + '0';
-				else
-					f[len] = (long long)fract % 10 - 1 + '0';
-			}
-		}
+		if (preci % 2 != 0 && preci > 9 && len == preci)
+			f[len] = (long long)fract % 10 - 1 + '0';
 		else
 			f[len] = (long long)fract % 10 + '0';
 	}
