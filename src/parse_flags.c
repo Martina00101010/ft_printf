@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 17:43:04 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/03 02:38:49 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/05 08:03:27 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 ** parsing length modifiers
 */
 
-static void	hh_h_ll_l(char **s, t_flags *flg)
+static void	hh_h_ll_l(char **s, char *length)
 {
 	int	len;
 
 	len = 0;
 	if (**s == 'h' && *(*s + 1) == 'h')
-		flg->length |= HHMOD;
+		*length |= HHMOD;
 	else if (**s == 'h')
-		flg->length |= HMOD;
+		*length |= HMOD;
 	else if (**s == 'l' && *(*s + 1) == 'l')
-		flg->length |= LLMOD;
+		*length |= LLMOD;
 	else if (**s == 'l')
-		flg->length |= LMOD;
+		*length |= LMOD;
 	else if (**s == 'L')
-		flg->length |= BIGL;
-	if (flg->length & HHMOD || flg->length & LLMOD)
+		*length |= BIGL;
+	if (*length & HHMOD || *length & LLMOD)
 		(*s) += 2;
-	else if (flg->length & HMOD || flg->length & LMOD || flg->length & BIGL)
+	else if (*length & HMOD || *length & LMOD || *length & BIGL)
 		(*s)++;
 }
 
@@ -64,6 +64,48 @@ static char	switch_flag(char **s)
 	return (flags);
 }
 
+static void	ft_preci(char **s, va_list ap, t_flags *flg)
+{
+	(*s)++;
+	flg->flags |= PRECISION;
+	if (**s == '*')
+	{
+		flg->preci = va_arg(ap, int);
+		if (flg->preci < 0)
+		{
+			flg->preci = 0;
+			flg->flags -= PRECISION;
+		}
+		(*s)++;
+	}
+	else
+	{
+		flg->preci = ft_atoi(*s);
+		while (**s >= '0' && **s <= '9')
+			(*s)++;
+	}
+}
+
+static void	ft_width(char **s, va_list ap, t_flags *flg)
+{
+	if (**s == '*')
+	{
+		flg->width = va_arg(ap, int);
+		if (flg->width < 0)
+		{
+			flg->width *= -1;
+			flg->flags |= MINUS;
+		}
+		(*s)++;
+	}
+	else
+	{
+		flg->width = ft_atoi(*s);
+		while (**s >= '0' && **s <= '9')
+			(*s)++;
+	}
+}
+
 /*
 **  skip dollar
 **  ft_atoi <- width
@@ -71,7 +113,7 @@ static char	switch_flag(char **s)
 **  ft_atoi <- length
 */
 
-t_flags		parse_flags(char **s)
+t_flags		parse_flags(char **s, va_list ap)
 {
 	char	*ptr;
 	t_flags	flg;
@@ -83,17 +125,9 @@ t_flags		parse_flags(char **s)
 		*s += ptr - *s + 1;
 	}
 	flg.flags = switch_flag(s);
-	if ((flg.width = ft_atoi(*s)))
-		while (**s >= '0' && **s <= '9')
-			(*s)++;
+	ft_width(s, ap, &flg);
 	if (**s == '.')
-	{
-		(*s)++;
-		flg.flags |= PRECISION;
-		flg.preci = ft_atoi(*s);
-		while (**s >= '0' && **s <= '9')
-			(*s)++;
-	}
-	hh_h_ll_l(s, &flg);
+		ft_preci(s, ap, &flg);
+	hh_h_ll_l(s, &flg.length);
 	return (flg);
 }

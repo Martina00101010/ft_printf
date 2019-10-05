@@ -6,7 +6,7 @@
 /*   By: koparker <koparker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 16:10:42 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/04 16:38:12 by koparker         ###   ########.fr       */
+/*   Updated: 2019/10/04 17:40:06 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void			i_align_right(t_flags *flg, t_output out, char *to_print)
 		ft_strcat(to_print, out.number);
 }
 
-static long long	get_number(va_list ap, char length)
+long long			get_i_number(va_list ap, char length)
 {
 	long long	iparam;
 	signed char	scp;
@@ -99,7 +99,7 @@ int					ft_i(t_vaio *v, t_flags *flg)
 	long long	iparam;
 	t_output	out;
 
-	iparam = get_number(v->ap, flg->length);
+	iparam = get_i_number(v->ap, flg->length);
 	out = i_output_structure(flg, iparam);
 	if (out.number == NULL)
 		ft_the_end(v);

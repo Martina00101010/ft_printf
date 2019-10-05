@@ -6,7 +6,7 @@
 /*   By: koparker <koparker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:32:01 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/04 16:39:39 by koparker         ###   ########.fr       */
+/*   Updated: 2019/10/05 08:41:52 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define LLMOD 1 << 2
 # define LMOD 1 << 3
 # define BIGL 1 << 4
+# define B_UNSIGNED 1 << 5
+
+# define LLMIN 9223372036854775807LL * -1 - 1LL
 
 typedef struct		s_output
 {
@@ -59,13 +62,15 @@ typedef struct		s_vaio
 	int		ret_val;
 }					t_vaio;
 
-typedef int			(*t_convert[11])(t_vaio *, t_flags *);
+# define NUMF 11
+
+typedef int			(*t_convert[NUMF])(t_vaio *, t_flags *);
 
 /*
 ** parsers of flags
 */
 
-t_flags				parse_flags(char **s);
+t_flags				parse_flags(char **s, va_list ap);
 
 /*
 ** parsers of conversion specifiers
@@ -98,13 +103,18 @@ void				ft_the_end(t_vaio *v);
 char				*ft_itoa_unsigned(long long n);
 char				*ft_ulltoa(unsigned long long n);
 unsigned long long	get_oux_number(va_list ap, char length);
+long long			get_i_number(va_list ap, char length);
 void				x_align_left(t_flags *flg, t_output out, char *to_print);
 void				x_align_right(t_flags *flg, t_output out, char *to_print);
 char				*ft_xtoa(unsigned long long xparam, char capital);
 int					ft_printf(char *s, ...);
 void				ft_refresh_buffer(t_vaio *v, int output_len);
+char				*ft_ftoa(long double fparam, int preci);
 
-// test
+/*
+** test
+*/
+
 char				*floats(char *str, int preci);
 
 #endif

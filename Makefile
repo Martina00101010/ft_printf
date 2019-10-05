@@ -6,12 +6,12 @@
 #    By: koparker <koparker@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/12 13:59:51 by pberge            #+#    #+#              #
-#    Updated: 2019/10/04 16:40:06 by koparker         ###   ########.fr        #
+#    Updated: 2019/10/05 08:25:17 by pberge           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-#WFLAGS = -Wall -Wextra -Werror   # switch on!
+WFLAGS = -Wall -Wextra -Werror
 SRCF = src
 SRCS = ft_printf.c	\
 	   parse_flags.c\
@@ -25,8 +25,8 @@ SRCS = ft_printf.c	\
 	   ft_c.c	\
 	   ft_p.c	\
 	   ft_f.c	\
-	   ft_ntoa.c\
-	   ft_scratch.c	\
+	   ft_ntoa.c	\
+	   ft_ftoa.c	\
 	   ft_xlow_xup.c	\
 	   ft_refresh_buffer.c\
 	   ft_error.c
@@ -84,10 +84,10 @@ $(LIBNAME):
 	@make -C libft
 
 e:
-	gcc -g compile/main.c $(SRC) -I./libft -I./inc -o test
+	gcc -g zcompile/main.c $(SRC) -I./libft -I./inc -o test
 
 c:
-	@gcc -g compile/main.c -I./libft -I./inc -L. -lftprintf -o test
+	@gcc -g zcompile/main.c -I./libft -I./inc -L. -lftprintf -o test
 
 clean:
 	@make clean -C $(LIBF)

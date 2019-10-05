@@ -3,114 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   ft_f.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koparker <koparker@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/03 18:11:18 by koparker          #+#    #+#             */
-/*   Updated: 2019/10/03 22:40:15 by koparker         ###   ########.fr       */
+/*   Created: 2019/10/03 00:57:59 by pberge            #+#    #+#             */
+/*   Updated: 2019/10/05 07:09:04 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include <stdlib.h>
 
-#include <stdio.h> // test
-
-double	ft_f(t_vaio *v, t_flags *flg)
+static void			f_align_left(t_flags *flg, t_output out, char *to_print)
 {
-	return (1.0);
+	int		p;
+
+	out.num_sp = flg->width - out.len - (out.sign || out.sp_flg);
+	out.len -= !out.preci_zero;
+	ft_memset(to_print, out.sign ? out.sym : ' ', out.sign || out.sp_flg);
+	p = (out.sign || out.sp_flg);
+	ft_strncat(to_print + p, out.number, out.len - flg->preci);
+	p += out.len - flg->preci;
+	ft_memset(to_print + p, '.', !out.preci_zero);
+	p += !out.preci_zero;
+	ft_strcat(to_print + p, out.number + out.len - flg->preci);
+	p += flg->preci;
+	ft_memset(to_print + p, ' ', out.num_sp);
 }
 
-char	*ft_strndup(const char *s1, unsigned char n)
+static void			f_align_right(t_flags *flg, t_output out, char *to_print)
 {
-	int		i;
-	char	*s2;
+	int		p;
 
-	i = 0;
-	if (!(s2 = (char *)malloc(sizeof(*s2) * (n + 1))))
-		return (NULL);
-	while (n != 0 && s1[i])
-	{
-		s2[i] = s1[i];
-		i++;
-		n--;
-	}
-	s2[i] = '\0';
-	return (s2);
+	out.num_sp = flg->width - out.len - (out.sign || out.sp_flg);
+	out.len -= !out.preci_zero;
+	ft_memset(to_print, ' ', flg->flags & ZERO ? 0 : out.num_sp);
+	p = flg->flags & ZERO ? 0 : out.num_sp;
+	ft_memset(to_print + p, out.sign ? out.sym : ' ', out.sign || out.sp_flg);
+	p += (out.sign || out.sp_flg);
+	ft_memset(to_print + p, '0', flg->flags & ZERO ? out.num_sp : 0);
+	p += flg->flags & ZERO ? out.num_sp : 0;
+	ft_strncat(to_print + p, out.number, out.len - flg->preci);
+	p += out.len - flg->preci;
+	ft_memset(to_print + p, '.', !out.preci_zero);
+	p += !out.preci_zero;
+	ft_strcat(to_print + p, out.number + out.len - flg->preci);
 }
 
-char	*ft_join_str(const char *s1, const char *s2, const char c)
+static t_output		f_output_structure(long double ld, t_flags *flg)
 {
-	char	*res;
-	size_t	len;
-	size_t	s1_len;
-	size_t	j;
+	t_output	out;
 
-	s1_len = ft_strlen(s1);
-	len = s1_len + ft_strlen(s2) + 1;
-	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	res = ft_strncpy(res, s1, s1_len);
-	res[s1_len] = c;
-	j = 0;
-	while (++s1_len <= len)
-		res[s1_len] = s2[j++];
-	res[++s1_len] = '\0';
-	return (res);
+	ft_bzero(&out, sizeof(t_output));
+	out.sign = (ld < 0 || flg->flags & PLUS) ? 1 : 0;
+	out.sym = ld < 0 ? '-' : '+';
+	out.sp_flg = (flg->flags & SPACE && !out.sign) ? 1 : 0;
+	if (flg->flags & PRECISION && flg->preci == 0 && !(flg->flags & SHARP))
+		out.preci_zero = 1;
+	flg->preci = flg->flags & PRECISION ? flg->preci : 6;
+	out.number = ft_ftoa((ld < 0 ? -ld : ld), flg->preci);
+	out.len = ft_strlen(out.number) + !out.preci_zero;
+	if (flg->width < out.len + (out.sign || out.sp_flg))
+		flg->width = out.len + (out.sign || out.sp_flg);
+	return (out);
 }
 
-char	*floats(char *str, int preci)
+static long double	ft_get_f(t_vaio *v, t_flags *flg)
 {
-	char	*tmp;
-	char	*nbr;
-	char	*frac;
-	int		frac_len;
-	char	*fr;
+	long double	ld;
+	double		d;
 
-	if ((tmp = ft_strchr(str, '.')) == NULL)
-		return (ft_strdup(str));
-	nbr = ft_strndup(str, tmp - str);
-	frac = ft_strdup(tmp + 1);
-	frac_len = ft_strlen(frac);
-	fr = ft_memset(fr, '0', preci + 1);
-	fr[preci] = '\0';
-	int i = -1;
-	if (frac_len < preci)
+	if (flg->length & BIGL)
+		ld = va_arg(v->ap, long double);
+	else
 	{
-		while (++i < frac_len)
-		{
-			if (frac[i] != '0')
-				fr[i] = frac[i];
-		}
-		printf("final number preci >= frac_len = %s . %s\n", nbr, fr);
+		d = va_arg(v->ap, double);
+		ld = (long double)d;
 	}
-	else if (frac_len > preci)
-	{
-		i = preci - 1;
-		if (frac[preci] > '4')
-		{
-			if (frac[preci - 1] != '9')
-				frac[preci - 1] = ((frac[preci - 1] - '0') + 1) + '0';
-			else
-			{
-				// while (frac[i] == '9')
-				// {
-				// 	frac[i] = '0';
-				// 	i--;
-				// 	printf("dd ---  %d\n", i);
-				// }
-				// printf("dd %d\n", i);
-				if (i == 0)
-					frac[i] = '1';
-			}
-		}
-		printf("i =========== %d\n", i);
-		if (i == -1)
-		{
-			nbr[ft_strlen(nbr) - 1] += 1;
-		}
-		fr = ft_strndup(frac, preci);
-		fr = ft_join_str(nbr, fr, '.');
-		printf("final number preci < frac_len = %s\n", fr);
-	}
-	return (fr);
+	return (ld);
+}
+
+int					ft_f(t_vaio *v, t_flags *flg)
+{
+	t_output	out;
+	long double	ld;
+
+	ld = ft_get_f(v, flg);
+	out = f_output_structure(ld, flg);
+	if (out.number == NULL)
+		ft_the_end(v);
+	ft_refresh_buffer(v, flg->width);
+	if (flg->flags & MINUS)
+		f_align_left(flg, out, v->to_print + v->len);
+	else
+		f_align_right(flg, out, v->to_print + v->len);
+	return (flg->width);
 }
