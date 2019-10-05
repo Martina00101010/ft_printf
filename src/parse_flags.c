@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 17:43:04 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/05 08:03:27 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/05 09:58:58 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,11 @@ static void	ft_width(char **s, va_list ap, t_flags *flg)
 }
 
 /*
-**  skip dollar
-**  ft_atoi <- width
-**  skip dot
-**  ft_atoi <- length
+**	get flags:
+**		# 0 space - +
+**		width, also by wildcard (*)
+**		precision, alse by wildcard (*)
+**		hh h ll l L
 */
 
 t_flags		parse_flags(char **s, va_list ap)

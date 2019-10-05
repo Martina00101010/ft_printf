@@ -6,11 +6,16 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 07:07:41 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/05 08:26:10 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/05 09:44:14 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdlib.h>
+
+/*
+** convert first <precision + 1> digits of fraction part to ascii
+*/
 
 static char	*ft_fract(long double fract, int preci)
 {
@@ -28,6 +33,10 @@ static char	*ft_fract(long double fract, int preci)
 	return (f);
 }
 
+/*
+** shift number to the right if there happens extra '1'
+*/
+
 static void	ft_shift(char *f)
 {
 	char	a;
@@ -43,6 +52,10 @@ static void	ft_shift(char *f)
 	}
 	*(f - 1) = '0';
 }
+
+/*
+** apply rounding to double
+*/
 
 static void	ft_fract_end(char *f, int size)
 {
@@ -69,6 +82,10 @@ static void	ft_fract_end(char *f, int size)
 	}
 }
 
+/*
+** convert long double to ascii
+*/
+
 char		*ft_ftoa(long double fparam, int preci)
 {
 	long long	intgr;
@@ -77,13 +94,23 @@ char		*ft_ftoa(long double fparam, int preci)
 	int			ilen;
 
 	intgr = (long long)fparam;
-	tmp = ft_itoa_unsigned(intgr);
+	if (!(tmp = ft_itoa_unsigned(intgr)))
+		return (NULL);
 	ilen = ft_strlen(tmp);
 	if (!(f = ft_strnew(ilen + preci + 1)))
+	{
+		free(tmp);
 		return (NULL);
+	}
 	ft_strcat(f, tmp);
-	tmp = ft_fract(fparam - (long long)fparam, preci);
+	free(tmp);
+	if (!(tmp = ft_fract(fparam - (long long)fparam, preci)))
+	{
+		free(f);
+		return (NULL);
+	}
 	ft_strcat(f + ilen, tmp);
+	free(tmp);
 	ft_fract_end(f, ilen + preci - 1);
 	return (f);
 }

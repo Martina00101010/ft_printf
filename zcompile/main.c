@@ -6,7 +6,7 @@
 /*   By: koparker <koparker@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 21:19:55 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/05 08:43:45 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/05 10:01:53 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ void	print_bits(unsigned char *b, int size)
 
 int		main(void)
 {
-	long long	a;
-
-	a = LLMIN;
-	printf("%lli\n", LLMIN);
-	printf("|%i\n", printf("%*d", -5, 42));
-	printf("|%i\n", ft_printf("%lli", a));
+//	long long	a;
+//
+//	a = LLMIN;
+//	printf("%lli\n", LLMIN);
+//	printf("|%i\n", printf("%*d", -5, 42));
+//	printf("|%i\n", ft_printf("%lli", a));
+	ft_printf("%x", 21);
 	return (0);
 }

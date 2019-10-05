@@ -6,7 +6,7 @@
 /*   By: pberge <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 00:57:59 by pberge            #+#    #+#             */
-/*   Updated: 2019/10/05 07:09:04 by pberge           ###   ########.fr       */
+/*   Updated: 2019/10/05 09:39:48 by pberge           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ int					ft_f(t_vaio *v, t_flags *flg)
 		f_align_left(flg, out, v->to_print + v->len);
 	else
 		f_align_right(flg, out, v->to_print + v->len);
+	free(out.number);
 	return (flg->width);
 }
